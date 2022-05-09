@@ -13,6 +13,10 @@ public class Menu {
         this.menu = new ArrayList<>();
     }
 
+    public ArrayList<Food> getMenu() {
+        return menu;
+    }
+
     public void startMenu(){
         Scanner scanner = new Scanner(System.in);
         int choose = -1;
@@ -24,7 +28,7 @@ public class Menu {
             System.out.println("4. Zmien dostepnosc danej pozycji");
             System.out.println("5. Zapisz do pliku aktualne menu");
             System.out.println("6. Wczytaj z pliku aktualne menu");
-            System.out.println("0. Zakoncz.");
+            System.out.println("0. Cofnij.");
             System.out.println("Wybierz operację: ");
 
             choose = scanner.nextInt();
