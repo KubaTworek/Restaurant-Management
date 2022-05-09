@@ -1,10 +1,10 @@
 package pl.pjatk;
 
 // obsluga wyjątków (niepozadanych wpisow)
-// odpowiednie numerowanie
+// odpowiednie numerowanie !!!
 // zapis i odczyt z pliku
 // dzialanie przyjmowanie a stringow do edycji pozycji
-//
+// tworzenie kilku mozliwych plikow z zapisanym menu
 
 public class Main {
 
@@ -21,6 +21,5 @@ public class Main {
         menu.addToMenu(food4);
         menu.addToMenu(food5);
         menu.startMenu();
-
     }
 }
