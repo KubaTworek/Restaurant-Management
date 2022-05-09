@@ -1,4 +1,4 @@
-package com.company;
+package pl.pjatk;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -123,6 +123,10 @@ public class Menu {
         for(int i=0; i<menu.size(); i++){
             if(menu.get(i).getNumber() == number){
                 menu.remove(i);
+                for(int j = i; j < menu.size(); j++){
+                    menu.get(j).setNumber(menu.get(j).getNumber()-1);
+                    Food.setNumberOfFood(Food.getNumberOfFood()-1);
+                }
             }
         }
         System.out.println("Danie zostało usunięte.");
@@ -132,6 +136,10 @@ public class Menu {
         for(int i=0; i<menu.size(); i++){
             if(menu.get(i).getName() == name){
                 menu.remove(i);
+                for(int j = i; j < menu.size(); j++){
+                    menu.get(j).setNumber(menu.get(j).getNumber()-1);
+                    Food.setNumberOfFood(Food.getNumberOfFood()-1);
+                }
             }
         }
         System.out.println("Danie zostało usunięte.");
@@ -148,13 +156,13 @@ public class Menu {
 
     public void writeFromFile() throws FileNotFoundException {
         this.menu.clear();
+        Food.setNumberOfFood(0);
         Scanner odczyt = new Scanner(new File("menu.txt"));
         while(odczyt.hasNext()){
             String name = odczyt.next();
             double cena = Double.parseDouble(odczyt.next());
             String describe = odczyt.nextLine();
             this.addToMenu(new Food(name, describe, cena));
-            System.out.println(name + cena + describe);
         }
     }
 

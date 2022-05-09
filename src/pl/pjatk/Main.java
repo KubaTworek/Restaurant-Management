@@ -1,8 +1,6 @@
 package pl.pjatk;
 
 // obsluga wyjątków (niepozadanych wpisow)
-// odpowiednie numerowanie !!!
-// zapis i odczyt z pliku
 // dzialanie przyjmowanie a stringow do edycji pozycji
 // tworzenie kilku mozliwych plikow z zapisanym menu
 

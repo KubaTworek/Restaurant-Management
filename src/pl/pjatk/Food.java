@@ -25,6 +25,10 @@ public class Food {
         return number;
     }
 
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
     public String getName() {
         return name;
     }
@@ -43,6 +47,14 @@ public class Food {
 
     public boolean getAvailable() {
         return available;
+    }
+
+    public static int getNumberOfFood() {
+        return numberOfFood;
+    }
+
+    public static void setNumberOfFood(int numberOfFood) {
+        Food.numberOfFood = numberOfFood;
     }
 
     public String toSave(){
