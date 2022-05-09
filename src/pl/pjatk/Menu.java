@@ -1,7 +1,9 @@
-package pl.pjatk;
+package com.company;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -64,13 +66,21 @@ public class Menu {
                     }
                     break;
                 case 5:
-                    this.writeOutMenu();
+                    try {
+                        this.saveToFile();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 6:
-                    this.writeOutMenu();
+                    try {
+                        this.writeFromFile();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 0:
-                break;
+                    break;
                 default:
                     System.out.println("Wybrales nieprawidlowy numer");
             }
@@ -125,6 +135,27 @@ public class Menu {
             }
         }
         System.out.println("Danie zostało usunięte.");
+    }
+
+    public void saveToFile() throws FileNotFoundException {
+        PrintWriter save = new PrintWriter("menu.txt");
+        for(Food food : menu){
+            save.println(food.toSave());
+        }
+        save.close();
+        System.out.println("Menu zostało zapisane");
+    }
+
+    public void writeFromFile() throws FileNotFoundException {
+        this.menu.clear();
+        Scanner odczyt = new Scanner(new File("menu.txt"));
+        while(odczyt.hasNext()){
+            String name = odczyt.next();
+            double cena = Double.parseDouble(odczyt.next());
+            String describe = odczyt.nextLine();
+            this.addToMenu(new Food(name, describe, cena));
+            System.out.println(name + cena + describe);
+        }
     }
 
     public void writeOutMenu(){
