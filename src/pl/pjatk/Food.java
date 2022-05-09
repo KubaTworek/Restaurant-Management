@@ -45,6 +45,10 @@ public class Food {
         return available;
     }
 
+    public String toSave(){
+        return this.name + " " + ((available == true ) ?  this.price + "" : "0") + " " + this.description;
+    }
+
     @Override
     public String toString(){
         return this.number + ". " + this.name + ", " + ((available == true ) ?  this.price + "$" : "UNAVAILABLE") + "\n" + this.description;
