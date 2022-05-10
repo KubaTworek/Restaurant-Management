@@ -16,6 +16,6 @@ public class DeliveryOrder extends Order {
         for(Food food : super.getOrderFood()){
             text += food.getName() + ", ";
         }
-        return text + "adres: " + this.deliveryAddress;
+        return text + "adres: " + this.deliveryAddress + ", czas oczekiwania: " + super.getWaitingTime() + "min";
     }
 }

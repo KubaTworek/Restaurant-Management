@@ -57,6 +57,7 @@ public class Management{
                                 kitchen.showOrdersInWork();
                                 break;
                             case 4:
+                                kitchen.showOrdersMade();
                                 break;
                             case 0:
                                 break;

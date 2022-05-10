@@ -3,6 +3,7 @@ package pl.pjatk;
 // obsluga wyjątków (niepozadanych wpisow)
 // dzialanie przyjmowanie a stringow do edycji pozycji
 // tworzenie kilku mozliwych plikow z zapisanym menu
+// wprowadzic kolejnosc zamowien
 
 import static pl.pjatk.Management.startManagement;
 
