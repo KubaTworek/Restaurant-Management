@@ -10,6 +10,10 @@ public class OnSiteOrder extends Order {
         this.tableNumber = tableNumber;
     }
 
+    public OnSiteOrder(int tableNumber){
+        this.tableNumber = tableNumber;
+    }
+
     @Override
     public String toString(){
         String text = "";

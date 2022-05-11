@@ -28,6 +28,9 @@ public abstract class Order{
         this.isCompleted = false;
     }
 
+    public Order(){
+    }
+
     public ArrayList<Food> getOrderFood() {
         return orderFood;
     }
@@ -38,6 +41,15 @@ public abstract class Order{
 
     public boolean isCompleted() {
         return isCompleted;
+    }
+
+    public void randomOrder(Menu menu, double amount){
+        this.orderFood = new ArrayList<>();
+        for(int i=0; i<amount; i++){
+            int randomPick = (int)(Math.random()*(menu.getMenu().size()));
+            this.orderFood.add(menu.getMenu().get(randomPick));
+        }
+        this.isCompleted = false;
     }
 
     public void startWaiting(){
@@ -76,5 +88,11 @@ public abstract class Order{
             this.isCompleted = true;
         });
         thread.start();
+    }
+
+    public void writeOutOrder(){
+        for(Food orderedFood : orderFood){
+            System.out.println(orderedFood.toString());
+        }
     }
 }

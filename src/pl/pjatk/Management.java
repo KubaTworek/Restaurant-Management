@@ -35,8 +35,9 @@ public class Management{
                     while(user != 0) {
                         System.out.println("1. Zamowienie stacjonarne");
                         System.out.println("2. Zamowienie z dostawą");
-                        System.out.println("3. Wypisz niezrealizowane zamowienia");
-                        System.out.println("4. Wypisz zrealizowane zamowienia");
+                        System.out.println("3. Losowe zamowienie");
+                        System.out.println("4. Wypisz niezrealizowane zamowienia");
+                        System.out.println("5. Wypisz zrealizowane zamowienia");
                         System.out.println("0. Cofnij.");
 
                         user = scanOrder.nextInt();
@@ -54,9 +55,34 @@ public class Management{
                                 kitchen.addDeliveryOrder(new DeliveryOrder(menu, address));
                                 break;
                             case 3:
-                                kitchen.showOrdersInWork();
+                                System.out.println("Wybrałeś losowe zamówienie");
+                                double typeOfOrder = Math.random();
+                                double amountOfFood = Math.random()*3;
+
+                                if(typeOfOrder > 0.5) {
+                                    System.out.println("Zamówienie z dowozem, podaj adres: ");
+                                    String addressRand = scanUser.nextLine();
+                                    DeliveryOrder deliveryOrderRand = new DeliveryOrder(addressRand);
+                                    deliveryOrderRand.randomOrder(menu, amountOfFood);
+                                    kitchen.addDeliveryOrder(deliveryOrderRand);
+                                    System.out.println("Zamówiłeś: ");
+                                    deliveryOrderRand.writeOutOrder();
+                                } else {
+                                    System.out.println("Zamówienie stacjonarne, podaj stolik: ");
+                                    int nrTableRand = scanUser.nextInt();
+                                    scanUser.nextLine();
+                                    OnSiteOrder onsiteOrderRand = new OnSiteOrder(nrTableRand);
+                                    onsiteOrderRand.randomOrder(menu, amountOfFood);
+                                    kitchen.addOnSiteOrder(onsiteOrderRand);
+                                    System.out.println("Zamówiłeś: ");
+                                    onsiteOrderRand.writeOutOrder();
+                                }
+
                                 break;
                             case 4:
+                                kitchen.showOrdersInWork();
+                                break;
+                            case 5:
                                 kitchen.showOrdersMade();
                                 break;
                             case 0:

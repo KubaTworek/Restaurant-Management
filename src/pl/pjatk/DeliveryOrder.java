@@ -10,6 +10,10 @@ public class DeliveryOrder extends Order {
         this.deliveryAddress = deliveryAddress;
     }
 
+    public DeliveryOrder(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
     @Override
     public String toString(){
         String text = "";
