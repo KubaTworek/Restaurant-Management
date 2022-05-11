@@ -3,10 +3,9 @@ package pl.pjatk;
 // obsluga wyjątków (niepozadanych wpisow)
 // dzialanie przyjmowanie a stringow do edycji pozycji
 // tworzenie kilku mozliwych plikow z zapisanym menu
-// wprowadzic kolejnosc zamowien
-// rabaty i czas oczekiwania
-// dzienny utarg
-// zrobic clean code
+// wprowadzic kolejnosc zamowien - sprobowac
+// rabaty i czas oczekiwania - sprobwac
+// zrobic clean code - dzisiaj na koniec
 // 3 CZESC - personel
 
 

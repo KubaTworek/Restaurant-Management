@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class Order{
     private ArrayList<Food> orderFood;
+    private double price = 0;
     private int timeToDo;
     private int waitingTime = 0;
     private boolean isCompleted;
@@ -29,6 +30,11 @@ public abstract class Order{
     }
 
     public Order(){
+        this.isCompleted = false;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
     public ArrayList<Food> getOrderFood() {
@@ -41,6 +47,12 @@ public abstract class Order{
 
     public boolean isCompleted() {
         return isCompleted;
+    }
+
+    public void countPrice(){
+        for(Food orderedFood : this.orderFood){
+            this.price += orderedFood.getPrice();
+        }
     }
 
     public void randomOrder(Menu menu, double amount){

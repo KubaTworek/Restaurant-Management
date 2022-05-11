@@ -17,7 +17,7 @@ public class Kitchen {
         this.deliveryOrdersMade = new ArrayList<>();
     }
 
-    public void addOnSiteOrder(OnSiteOrder order){
+    public double addOnSiteOrder(OnSiteOrder order){
         this.onsiteOrdersInWork.add(order);
         order.startWaiting();
         order.startMaking();
@@ -30,12 +30,15 @@ public class Kitchen {
                 }
             }
             this.onsiteOrdersInWork.remove(order);
+            //dodanie kasy do utargu
             this.onsiteOrdersMade.add(order);
         });
         thread.start();
+
+        return order.getPrice();
     }
 
-    public void addDeliveryOrder(DeliveryOrder order){
+    public double addDeliveryOrder(DeliveryOrder order){
         this.deliveryOrdersInWork.add(order);
         order.startWaiting();
         order.startMaking();
@@ -51,6 +54,8 @@ public class Kitchen {
             this.deliveryOrdersMade.add(order);
         });
         thread.start();
+
+        return order.getPrice();
     }
 
     public void showOrdersInWork(){

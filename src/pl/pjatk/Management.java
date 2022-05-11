@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Management{
+    private static double finalMoney;
     public static void startManagement(){
 
         Kitchen kitchen = new Kitchen();
@@ -20,6 +21,7 @@ public class Management{
             System.out.println();
             System.out.println("1. Zarzadzaj menu");
             System.out.println("2. Zarzadzaj zamówieniami");
+            System.out.println("3. Wypisz utarg");
             System.out.println("0. Zakoncz.");
             System.out.println("Wybierz operację: ");
 
@@ -47,12 +49,12 @@ public class Management{
                                 System.out.println("Wybierz stolik: ");
                                 int nrTable = scanUser.nextInt();
                                 scanUser.nextLine();
-                                kitchen.addOnSiteOrder(new OnSiteOrder(menu, nrTable));
+                                finalMoney += kitchen.addOnSiteOrder(new OnSiteOrder(menu, nrTable));
                                 break;
                             case 2:
                                 System.out.println("Wybierz adres: ");
                                 String address = scanUser.nextLine();
-                                kitchen.addDeliveryOrder(new DeliveryOrder(menu, address));
+                                finalMoney += kitchen.addDeliveryOrder(new DeliveryOrder(menu, address));
                                 break;
                             case 3:
                                 System.out.println("Wybrałeś losowe zamówienie");
@@ -64,7 +66,8 @@ public class Management{
                                     String addressRand = scanUser.nextLine();
                                     DeliveryOrder deliveryOrderRand = new DeliveryOrder(addressRand);
                                     deliveryOrderRand.randomOrder(menu, amountOfFood);
-                                    kitchen.addDeliveryOrder(deliveryOrderRand);
+                                    deliveryOrderRand.countPrice();
+                                    finalMoney += kitchen.addDeliveryOrder(deliveryOrderRand);
                                     System.out.println("Zamówiłeś: ");
                                     deliveryOrderRand.writeOutOrder();
                                 } else {
@@ -73,11 +76,11 @@ public class Management{
                                     scanUser.nextLine();
                                     OnSiteOrder onsiteOrderRand = new OnSiteOrder(nrTableRand);
                                     onsiteOrderRand.randomOrder(menu, amountOfFood);
-                                    kitchen.addOnSiteOrder(onsiteOrderRand);
+                                    onsiteOrderRand.countPrice();
+                                    finalMoney += kitchen.addOnSiteOrder(onsiteOrderRand);
                                     System.out.println("Zamówiłeś: ");
                                     onsiteOrderRand.writeOutOrder();
                                 }
-
                                 break;
                             case 4:
                                 kitchen.showOrdersInWork();
@@ -91,8 +94,9 @@ public class Management{
                                 System.out.println("Wybrales nieprawidlowy numer");
                         }
                     }
-
                     break;
+                case 3:
+                    System.out.println("Utarg wynnosi: " + finalMoney + "$.");
                 case 0:
                     break;
                 default:

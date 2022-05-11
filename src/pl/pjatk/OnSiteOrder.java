@@ -20,6 +20,6 @@ public class OnSiteOrder extends Order {
         for(Food food : super.getOrderFood()){
             text += food.getName() + ", ";
         }
-        return text + "numer stolika: " + this.tableNumber + ", czas oczekiwania: " + super.getWaitingTime() + "min";
+        return text + "numer stolika: " + this.tableNumber + ", czas oczekiwania: " + super.getWaitingTime() + "min, cena: " + super.getPrice() + "$";
     }
 }
