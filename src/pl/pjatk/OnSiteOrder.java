@@ -14,6 +14,10 @@ public class OnSiteOrder extends Order {
         this.tableNumber = tableNumber;
     }
 
+    public int getTableNumber() {
+        return tableNumber;
+    }
+
     @Override
     public String toString(){
         String text = "";

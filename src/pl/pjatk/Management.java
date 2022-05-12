@@ -7,6 +7,7 @@ public class Management{
     private static double finalMoney;
     public static void startManagement(){
 
+        Personel personel = new Personel();
         Kitchen kitchen = new Kitchen();
         Menu menu = new Menu();
         menu.addToMenu(new Food("Spaghetti", "Real italiano spaghetti bolognese.", 7.99));
@@ -21,7 +22,8 @@ public class Management{
             System.out.println();
             System.out.println("1. Zarzadzaj menu");
             System.out.println("2. Zarzadzaj zamówieniami");
-            System.out.println("3. Wypisz utarg");
+            System.out.println("3. Zarzadzaj personelem");
+            System.out.println("4. Wypisz utarg");
             System.out.println("0. Zakoncz.");
             System.out.println("Wybierz operację: ");
 
@@ -96,6 +98,135 @@ public class Management{
                     }
                     break;
                 case 3:
+                    Scanner scanPersonel = new Scanner(System.in);
+                    int choice = -1;
+                    while(choice != 0) {
+                        System.out.println("1. Zatrudnij pracownika");
+                        System.out.println("2. Zwolnij pracownika");
+                        System.out.println("3. Wypisz informacje o pracowniku");
+                        System.out.println("4. Wypisz wszytskich pracownikow");
+                        System.out.println("0. Cofnij.");
+
+                        choice = scanPersonel.nextInt();
+                        Scanner scanUser = new Scanner(System.in);
+                        switch(choice){
+                            case 1:
+                                System.out.println("Podaj imie: ");
+                                String name = scanUser.nextLine();
+                                System.out.println("Podaj nazwisko: ");
+                                String surname = scanUser.nextLine();
+                                System.out.println("Podaj numer telefonu: ");
+                                String phone = scanUser.nextLine();
+                                System.out.println("Podaj funkcje: (1.kucharz 2.kelner 3.dostawca)");
+                                int functionHire = scanUser.nextInt();
+                                scanUser.nextLine();
+                                switch(functionHire){
+                                    case 1:
+                                        personel.addPersonel(new Cook(name, surname, phone));
+                                        break;
+                                    case 2:
+                                        personel.addPersonel(new Waiter(name, surname, phone));
+                                        break;
+                                    case 3:
+                                        personel.addPersonel(new DelieveryMan(name, surname, phone));
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                System.out.println("Podaj funkcje pracownika, któego chcesz zwolnić: (1.kucharz 2.kelner 3.dostawca)");
+                                int functionFire = scanUser.nextInt();
+                                scanUser.nextLine();
+                                Scanner fireingScanner = new Scanner(System.in);
+                                int firedWorker;
+                                switch(functionFire){
+                                    case 1:
+                                        personel.writeOutCooks();
+                                        System.out.println("Kogo chciałbys zwolnić? (numer/nazwa)");
+                                        firedWorker = fireingScanner.nextInt();
+                                        fireingScanner.nextLine();
+                                        try {
+                                            personel.firePersonel(personel.getCooks().get(firedWorker-1));
+                                        } catch (NumberFormatException e){
+                                            //personel.firePersonel(firedWorker); // NOT WORKING!!!!
+                                        }
+                                        break;
+                                    case 2:
+                                        personel.writeOutWaiters();
+                                        System.out.println("Kogo chciałbys zwolnić? (numer/nazwa)");
+                                        firedWorker = fireingScanner.nextInt();
+                                        fireingScanner.nextLine();
+                                        try {
+                                            personel.firePersonel(personel.getWaiters().get(firedWorker-1));
+                                        } catch (NumberFormatException e){
+                                            //personel.firePersonel(firedWorker); // NOT WORKING!!!!
+                                        }
+                                        break;
+                                    case 3:
+                                        personel.writeOutDelievers();
+                                        System.out.println("Kogo chciałbys zwolnić? (numer/nazwa)");
+                                        firedWorker = fireingScanner.nextInt();
+                                        fireingScanner.nextLine();
+                                        try {
+                                            personel.firePersonel(personel.getDelieverymen().get(firedWorker-1));
+                                        } catch (NumberFormatException e){
+                                            //personel.firePersonel(firedWorker); // NOT WORKING!!!!
+                                        }
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                System.out.println("Podaj funkcje pracownika, któego chcesz zwolnić: (1.kucharz 2.kelner 3.dostawca)");
+                                int functionShow = scanUser.nextInt();
+                                scanUser.nextLine();
+                                Scanner showingScanner = new Scanner(System.in);
+                                int showedWorker;
+                                switch(functionShow){
+                                    case 1:
+                                        personel.writeOutCooks();
+                                        System.out.println("Kogo chciałbys wylistować? (numer/nazwa)");
+                                        showedWorker = showingScanner.nextInt();
+                                        showingScanner.nextLine();
+                                        try {
+                                            System.out.println(personel.getCooks().get(showedWorker-1).toString());;
+                                        } catch (NumberFormatException e){
+                                            //System.out.println(personel.getCooks().get(showedWorker-1).toString()); // NOT WORKING!!!!
+                                        }
+                                        break;
+                                    case 2:
+                                        personel.writeOutWaiters();
+                                        System.out.println("Kogo chciałbys wylistować? (numer/nazwa)");
+                                        showedWorker = showingScanner.nextInt();
+                                        showingScanner.nextLine();
+                                        try {
+                                            System.out.println(personel.getWaiters().get(showedWorker-1).toString());;
+                                        } catch (NumberFormatException e){
+                                            //System.out.println(personel.getWaiters().get(showedWorker-1).toString()); // NOT WORKING!!!!
+                                        }
+                                        break;
+                                    case 3:
+                                        personel.writeOutDelievers();
+                                        System.out.println("Kogo chciałbys wylistować? (numer/nazwa)");
+                                        showedWorker = showingScanner.nextInt();
+                                        showingScanner.nextLine();
+                                        try {
+                                            System.out.println(personel.getDelieverymen().get(showedWorker-1).toString());
+                                        } catch (NumberFormatException e){
+                                            //System.out.println(personel.getDelieverymen().get(showedWorker-1).toString()); // NOT WORKING!!!!
+                                        }
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                personel.writeOutWorkers();
+                                break;
+                            case 0:
+                                break;
+                            default:
+                                System.out.println("Wybrales nieprawidlowy numer");
+                        }
+                    }
+                    break;
+                case 4:
                     System.out.println("Utarg wynnosi: " + finalMoney + "$.");
                 case 0:
                     break;

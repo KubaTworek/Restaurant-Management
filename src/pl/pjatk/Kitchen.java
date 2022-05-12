@@ -2,7 +2,7 @@ package pl.pjatk;
 
 import java.util.ArrayList;
 
-public class Kitchen {
+public class Kitchen{
     private ArrayList<OnSiteOrder> onsiteOrdersInWork;
     private ArrayList<DeliveryOrder> deliveryOrdersInWork;
 
@@ -30,7 +30,6 @@ public class Kitchen {
                 }
             }
             this.onsiteOrdersInWork.remove(order);
-            //dodanie kasy do utargu
             this.onsiteOrdersMade.add(order);
         });
         thread.start();
@@ -81,4 +80,5 @@ public class Kitchen {
         }
         System.out.println("******************************************");
     }
+
 }
