@@ -1,6 +1,7 @@
 package pl.pjatk;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -16,12 +17,29 @@ public abstract class Order{
         Scanner scanner = new Scanner(System.in);
         System.out.println("Co chciałbyś zamówić?");
         menu.writeOutMenu();
-        int userPick = scanner.nextInt() - 1;
+        int userPick = -1;
+        try {
+            userPick = scanner.nextInt() - 1;
+        } catch (InputMismatchException e) {
+            scanner.nextLine();
+            System.out.println("Podaj prawidłowy numer.");
+        } catch (IndexOutOfBoundsException e) {
+            scanner.nextLine();
+            System.out.println("Podaj prawidłowy numer.");
+        }
         this.orderFood.add(menu.getMenu().get(userPick));
         scanner.nextLine();
         while(userPick != -1){
             System.out.println("Coś jeszcze? (jeśli koniec, wybierz 0)");
-            userPick = scanner.nextInt() - 1;
+            try {
+                userPick = scanner.nextInt() - 1;
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("Podaj prawidłowy numer.");
+            } catch (IndexOutOfBoundsException e) {
+                scanner.nextLine();
+                System.out.println("Podaj prawidłowy numer.");
+            }
             if(userPick == -1) break;
             this.orderFood.add(menu.getMenu().get(userPick));
             scanner.nextLine();

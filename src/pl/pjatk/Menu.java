@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -43,31 +44,52 @@ public class Menu {
                     System.out.println("Jakie danie chciłałbyś dodać?");
                     String name = addingScanner.nextLine();
                     System.out.println("Jaką miałoby cenę?");
-                    price = addingScanner.nextDouble();
+                    try {
+                        price = addingScanner.nextDouble();
+                    } catch (InputMismatchException e) {
+                        addingScanner.nextLine();
+                        System.out.println("Podaj prawidłowy numer.");
+                    }
                     addingScanner.nextLine();
                     System.out.println("Podaj opis dania");
                     String description = addingScanner.nextLine();
                     this.addToMenu(new Food(name, description, price));
                     break;
                 case 3:
+                    this.writeOutMenu();
                     Scanner deletingScanner = new Scanner(System.in);
-                    System.out.println("Co chciałbys usunąć? (numer/nazwa)");
-                    String deletedFood = deletingScanner.nextLine();
+                    System.out.println("Co chciałbys usunąć?");
+                    int deletedFood = 0;
                     try {
-                        this.deleteFromMenu(Integer.parseInt(deletedFood));
-                    } catch (NumberFormatException e){
-                        this.deleteFromMenu(deletedFood); // NOT WORKING!!!!
+                        deletedFood = deletingScanner.nextInt();
+                        if(deletedFood < 0 || deletedFood > menu.size()){
+                            System.out.println("Podałeś nieprawdiłowy numer.");
+                            break;
+                        }
+                    } catch (InputMismatchException e) {
+                        deletingScanner.nextLine();
+                        System.out.println("Podaj prawidłowy numer.");
                     }
+                    deletingScanner.nextLine();
+                    this.deleteFromMenu(deletedFood);
                     break;
                 case 4:
+                    this.writeOutMenu();
                     Scanner changingScanner = new Scanner(System.in);
-                    System.out.println("Któremu daniu chciałbyś zmienić dostępność? (numer/nazwa)");
-                    String changedFood = changingScanner.nextLine();
+                    System.out.println("Któremu daniu chciałbyś zmienić dostępność?");
+                    int changedFood = 0;
                     try {
-                        this.changeAvailability(Integer.parseInt(changedFood));
-                    } catch (NumberFormatException e){
-                        this.changeAvailability(changedFood); // NOT WORKING!!!!
+                        changedFood = changingScanner.nextInt();
+                        if(changedFood < 0 || changedFood > menu.size()){
+                            System.out.println("Podałeś nieprawdiłowy numer.");
+                            break;
+                        }
+                    } catch (InputMismatchException e) {
+                        changingScanner.nextLine();
+                        System.out.println("Podaj prawidłowy numer.");
                     }
+                    changingScanner.nextLine();
+                    this.changeAvailability(changedFood);
                     break;
                 case 5:
                     try {

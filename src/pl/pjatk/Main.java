@@ -1,24 +1,53 @@
 package pl.pjatk;
 
-//wprowadzic poczatkowych pracownikow i menu
-// obsluga wyjątków (niepozadanych wpisow)
-// dzialanie przyjmowanie a stringow do edycji pozycji
 // tworzenie kilku mozliwych plikow z zapisanym menu
-// wprowadzic kolejnosc zamowien - sprobowac
-// rabaty i czas oczekiwania - sprobwac
+// wprowadzic kolejnosc zamowien
+// rabaty i czas oczekiwania
 // zrobic clean code - dzisiaj na koniec
+// wprowadzic advanced features
 // 3 CZESC - personel
-// wprowadzic wyjatki o wprowadzenie zlego pracownika
-// dodac opcje informacji, jak nie ma pracownika ktorego chcemu zwolnic lub wylistowac
-// 4 czesc - praca restauracji
-// rozpoczecie iz zaonczenie pracy restauracji
+// wprowadzic funkcje dla pracownikow
 
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 import static pl.pjatk.Management.startManagement;
+import static pl.pjatk.Management.stopManagement;
 
 public class Main {
 
     public static void main(String[] args) {
-        startManagement();
+
+        Scanner scanner = new Scanner(System.in);
+        int choose = -1;
+        while (choose != 0) {
+            System.out.println();
+            System.out.println("1. Rozpocznij dzień w resturacji");
+            System.out.println("2. Zakończ dzień w restauracji");
+            System.out.println("0. Zakoncz.");
+
+            try {
+                choose = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("Podaj prawidłowy numer.");
+            }
+
+            switch (choose) {
+                case 1:
+                    startManagement();
+                    break;
+                case 2:
+                    stopManagement();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Wybrałeś nieodpowiedni numer.");
+                    break;
+            }
+
+        }
     }
 }

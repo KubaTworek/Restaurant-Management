@@ -59,7 +59,7 @@ public class Personel {
         System.out.println("Kucharze: ");
         int i = 0;
         for(Worker worker : this.cooks) {
-            System.out.println(++i + worker.toString());
+            System.out.println(++i + ". "  + worker.toString());
         }
     }
 
@@ -67,7 +67,7 @@ public class Personel {
         System.out.println("Kelnerzy: ");
         int i = 0;
         for(Worker worker : this.waiters){
-            System.out.println(++i + worker.toString());
+            System.out.println(++i + ". " + worker.toString());
         }
     }
 
@@ -75,7 +75,7 @@ public class Personel {
         System.out.println("Dostawcy: ");
         int i = 0;
         for(Worker worker : this.delieverymen){
-            System.out.println(++i + worker.toString());
+            System.out.println(++i + ". "  + worker.toString());
         }
     }
 
