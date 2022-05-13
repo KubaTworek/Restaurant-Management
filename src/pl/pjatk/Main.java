@@ -1,13 +1,11 @@
 package pl.pjatk;
 
-// tworzenie kilku mozliwych plikow z zapisanym menu
 // wprowadzic kolejnosc zamowien
 // rabaty i czas oczekiwania
 // zrobic clean code - dzisiaj na koniec
 // wprowadzic advanced features
 // 3 CZESC - personel
 // wprowadzic funkcje dla pracownikow
-
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

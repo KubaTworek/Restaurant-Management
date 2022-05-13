@@ -11,7 +11,7 @@ public abstract class Worker {
         this.phone = phone;
     }
 
-    public String toString(){
+    public String toString() {
         return "Pracownik: " + this.name + " " + this.surname + ", numer telefonu: " + phone;
     }
 }

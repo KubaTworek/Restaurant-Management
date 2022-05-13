@@ -3,4 +3,4 @@ Burger 9.99 Americano big beef burger.
 Pizza 12.99 Italiano classic pizza.
 Pasta 11.99 Very tasty vegan pasta.
 Sushi 18.99 Real japanese classy food
-Lody 2.0 ice cream
+
