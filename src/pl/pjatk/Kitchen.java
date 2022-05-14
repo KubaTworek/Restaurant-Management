@@ -1,81 +1,75 @@
 package pl.pjatk;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class Kitchen{
-    private ArrayList<OnSiteOrder> onsiteOrdersInWork;
-    private ArrayList<DeliveryOrder> deliveryOrdersInWork;
-
-    private ArrayList<OnSiteOrder> onsiteOrdersMade;
-    private ArrayList<DeliveryOrder> deliveryOrdersMade;
+public class Kitchen {
+    private LinkedList<Order> ordersQueue;
+    private ArrayList<Order> ordersMade;
 
     public Kitchen() {
-        this.onsiteOrdersInWork = new ArrayList<>();
-        this.deliveryOrdersInWork = new ArrayList<>();
+        this.ordersQueue = new LinkedList<>();
+        this.ordersMade = new ArrayList<>();
 
-        this.onsiteOrdersMade = new ArrayList<>();
-        this.deliveryOrdersMade = new ArrayList<>();
-    }
-
-    public double addOnSiteOrder(OnSiteOrder order){
-        this.onsiteOrdersInWork.add(order);
-        order.startWaiting();
-        order.startMaking();
         Thread thread = new Thread(() -> {
-            while(!order.isCompleted()){
+            while (true) {
                 try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.sleep(1000);
+                    if (!this.ordersQueue.isEmpty()) {
+                        for (int j = 0; j<this.ordersQueue.size(); j+=0) {
+                            for (double i = 0; i < this.ordersQueue.get(j).getOrderFood().size() * 0.5; i+=0.5) {
+                                try {
+                                    this.ordersQueue.get(j).setWaitingTime(this.ordersQueue.get(j).getWaitingTime()+0.5);
+                                    Thread.sleep(500);
+                                } catch (InterruptedException ex) {
+                                    Thread.currentThread().interrupt();
+                                }
+                            }
+                            this.ordersQueue.get(j).setCompleted(true);
+                            this.ordersMade.add(this.ordersQueue.get(j));
+                            this.ordersQueue.remove(this.ordersQueue.get(j));
+                        }
+                    }
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
                 }
             }
-            this.onsiteOrdersInWork.remove(order);
-            this.onsiteOrdersMade.add(order);
         });
         thread.start();
+    }
 
+
+    public double addToQueue(OnSiteOrder order) {
+        for(int i=0; i<this.ordersQueue.size(); i++){
+            if(this.ordersQueue.get(i).equals(Order.Typ.DELIVERY)){
+                this.ordersQueue.add(i, order);
+                return order.getPrice();
+            }
+        }
+        this.ordersQueue.add(order);
         return order.getPrice();
     }
 
-    public double addDeliveryOrder(DeliveryOrder order){
-        this.deliveryOrdersInWork.add(order);
-        order.startWaiting();
-        order.startMaking();
-        Thread thread = new Thread(() -> {
-            while(!order.isCompleted()){
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            this.deliveryOrdersInWork.remove(order);
-            this.deliveryOrdersMade.add(order);
-        });
-        thread.start();
-
+    public double addToQueue(DeliveryOrder order) {
+        this.ordersQueue.add(order);
         return order.getPrice();
     }
 
-    public void showOrdersInWork(){
+
+    public void showOrdersInWork() {
         System.out.println();
         System.out.println("******************************************");
-        for(Order order : this.onsiteOrdersInWork){
-            System.out.println(order.toString());
-        }
-        for(Order order : this.deliveryOrdersInWork){
+        for (Order order : this.ordersQueue) {
             System.out.println(order.toString());
         }
         System.out.println("******************************************");
     }
 
-    public void showOrdersMade(){
+    public void showOrdersMade() {
         System.out.println();
         System.out.println("******************************************");
-        for(Order order : this.onsiteOrdersMade){
-            System.out.println(order.toString());
-        }
-        for(Order order : this.deliveryOrdersMade){
+        int i = 0;
+        for (Order order : this.ordersMade) {
             System.out.println(order.toString());
         }
         System.out.println("******************************************");

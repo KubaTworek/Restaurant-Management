@@ -50,24 +50,24 @@ public class Management {
                 System.out.println("Wybrales nieprawidlowy numer");
         }
 
-
         personel.addPersonel(new Cook("Andrzej", "Brzozowski", "784123494"));
         personel.addPersonel(new Cook("Katarzyna", "Brzeziński", "606395101"));
         personel.addPersonel(new Waiter("Marcin", "Nowak", "510345271"));
         personel.addPersonel(new DelieveryMan("Jarosław", "Kowalski", "660240885"));
+
         for (int i = 0; i < 5; i++) {
-            int rand = (int) (Math.random() * 3);
+            int rand = (int) (Math.random() * 3) + 1;
             OnSiteOrder onsiteOrder = new OnSiteOrder(1);
             onsiteOrder.randomOrder(menu, rand);
             onsiteOrder.countPrice();
-            finalMoney += kitchen.addOnSiteOrder(onsiteOrder);
+            finalMoney += kitchen.addToQueue(onsiteOrder);
         }
         for (int i = 0; i < 5; i++) {
-            int rand = (int) (Math.random() * 3);
+            int rand = (int) (Math.random() * 3) + 1;
             DeliveryOrder deliveryOrder = new DeliveryOrder("Warszawa");
             deliveryOrder.randomOrder(menu, rand);
             deliveryOrder.countPrice();
-            finalMoney += kitchen.addDeliveryOrder(deliveryOrder);
+            finalMoney += kitchen.addToQueue(deliveryOrder);
         }
 
 
@@ -124,17 +124,21 @@ public class Management {
                                     System.out.println("Podaj prawidłowy numer.");
                                 }
                                 scanUser.nextLine();
-                                finalMoney += kitchen.addOnSiteOrder(new OnSiteOrder(menu, nrTable));
+                                OnSiteOrder onsiteOrder = new OnSiteOrder(menu, nrTable);
+                                onsiteOrder.countPrice();
+                                finalMoney += kitchen.addToQueue(onsiteOrder);
                                 break;
                             case 2:
                                 System.out.println("Wybierz adres: ");
                                 String address = scanUser.nextLine();
-                                finalMoney += kitchen.addDeliveryOrder(new DeliveryOrder(menu, address));
+                                DeliveryOrder deliveryOrder = new DeliveryOrder(menu, address);
+                                deliveryOrder.countPrice();
+                                finalMoney += kitchen.addToQueue(deliveryOrder);
                                 break;
                             case 3:
                                 System.out.println("Wybrałeś losowe zamówienie");
                                 double typeOfOrder = Math.random();
-                                double amountOfFood = Math.random() * 3;
+                                double amountOfFood = Math.random() * 3 + 1;
 
                                 if (typeOfOrder > 0.5) {
                                     System.out.println("Zamówienie z dowozem, podaj adres: ");
@@ -142,7 +146,7 @@ public class Management {
                                     DeliveryOrder deliveryOrderRand = new DeliveryOrder(addressRand);
                                     deliveryOrderRand.randomOrder(menu, amountOfFood);
                                     deliveryOrderRand.countPrice();
-                                    finalMoney += kitchen.addDeliveryOrder(deliveryOrderRand);
+                                    finalMoney += kitchen.addToQueue(deliveryOrderRand);
                                     System.out.println("Zamówiłeś: ");
                                     deliveryOrderRand.writeOutOrder();
                                 } else {
@@ -158,7 +162,7 @@ public class Management {
                                     OnSiteOrder onsiteOrderRand = new OnSiteOrder(nrTableRand);
                                     onsiteOrderRand.randomOrder(menu, amountOfFood);
                                     onsiteOrderRand.countPrice();
-                                    finalMoney += kitchen.addOnSiteOrder(onsiteOrderRand);
+                                    finalMoney += kitchen.addToQueue(onsiteOrderRand);
                                     System.out.println("Zamówiłeś: ");
                                     onsiteOrderRand.writeOutOrder();
                                 }

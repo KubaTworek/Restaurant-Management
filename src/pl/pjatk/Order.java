@@ -3,14 +3,15 @@ package pl.pjatk;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public abstract class Order{
     private ArrayList<Food> orderFood;
     private double price = 0;
-    private int timeToDo;
-    private int waitingTime = 0;
+    private double waitingTime = 0;
     private boolean isCompleted;
+    public enum Typ {
+        DELIVERY, ONSITE;
+    }
 
     public Order(Menu menu) {
         this.orderFood = new ArrayList<>();
@@ -51,6 +52,10 @@ public abstract class Order{
         this.isCompleted = false;
     }
 
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -59,7 +64,11 @@ public abstract class Order{
         return orderFood;
     }
 
-    public int getWaitingTime() {
+    public void setWaitingTime(double waitingTime) {
+        this.waitingTime = waitingTime;
+    }
+
+    public double getWaitingTime() {
         return waitingTime;
     }
 
@@ -82,43 +91,6 @@ public abstract class Order{
         this.isCompleted = false;
     }
 
-    public void startWaiting(){
-        Thread thread = new Thread(() -> {
-            for(int i = 0; i < 100; i++){
-                if(this.isCompleted){
-                    break;
-                }
-                try
-                {
-                    Thread.sleep(1000);
-                    this.waitingTime++;
-                }
-                catch(InterruptedException ex)
-                {
-                    Thread.currentThread().interrupt();
-                }
-            }
-        });
-        thread.start();
-
-    }
-
-    public void startMaking(){
-        Thread thread = new Thread(() -> {
-            for(int i = 0; i < this.orderFood.size() * 0.5; i++){
-                try
-                {
-                    Thread.sleep(1000);
-                }
-                catch(InterruptedException ex)
-                {
-                    Thread.currentThread().interrupt();
-                }
-            }
-            this.isCompleted = true;
-        });
-        thread.start();
-    }
 
     public void writeOutOrder(){
         for(Food orderedFood : orderFood){

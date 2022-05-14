@@ -1,5 +1,6 @@
 package pl.pjatk;
 
+// posiadanie listy pracownikow w pliku
 // wprowadzic kolejnosc zamowien
 // rabaty i czas oczekiwania
 // zrobic clean code - dzisiaj na koniec
@@ -7,6 +8,7 @@ package pl.pjatk;
 // 3 CZESC - personel
 // wprowadzic funkcje dla pracownikow
 
+import java.text.DecimalFormat;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,6 +18,7 @@ import static pl.pjatk.Management.stopManagement;
 public class Main {
 
     public static void main(String[] args) {
+        DecimalFormat twoDForm = new DecimalFormat("#.00");
 
         Scanner scanner = new Scanner(System.in);
         int choose = -1;

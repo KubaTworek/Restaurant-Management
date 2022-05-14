@@ -1,18 +1,25 @@
 package pl.pjatk;
 
-import java.util.ArrayList;
+
+import static pl.pjatk.Order.Typ.DELIVERY;
 
 public class DeliveryOrder extends Order {
     private String deliveryAddress;
 
+
+
     public DeliveryOrder(Menu menu, String deliveryAddress) {
         super(menu);
         this.deliveryAddress = deliveryAddress;
+        DeliveryOrder.Typ typ = DELIVERY;
     }
 
     public DeliveryOrder(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
+        DeliveryOrder.Typ typ = DELIVERY;
     }
+
+
 
     @Override
     public String toString(){
