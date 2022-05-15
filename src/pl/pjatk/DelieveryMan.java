@@ -1,22 +1,11 @@
 package pl.pjatk;
 
-
 public class DelieveryMan extends Worker{
-    private boolean isBusy;
     private double tip;
 
     public DelieveryMan(String name, String surname, String phone) {
         super(name, surname, phone);
-        this.isBusy = false;
         this.tip = 0;
-    }
-
-    public boolean isBusy() {
-        return isBusy;
-    }
-
-    public void setBusy(boolean busy) {
-        isBusy = busy;
     }
 
     public double getTip() {

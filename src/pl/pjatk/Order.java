@@ -63,9 +63,7 @@ public abstract class Order{
         this.isCompleted = false;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
+    // GETTERS
 
     public double getPrice() {
         return price;
@@ -73,14 +71,6 @@ public abstract class Order{
 
     public int getNumber() {
         return number;
-    }
-
-    public void setHourMade(String hourMade) {
-        this.hourMade = hourMade;
-    }
-
-    public String getHourMade() {
-        return hourMade;
     }
 
     public String getHourOrder() {
@@ -91,6 +81,20 @@ public abstract class Order{
         return orderFood;
     }
 
+    public int getWaitingTime() {
+        return waitingTime;
+    }
+
+    // SETTERS
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+
+    public void setHourMade(String hourMade) {
+        this.hourMade = hourMade;
+    }
+
     public void setWaitingTime(int waitingTime) {
         this.waitingTime = waitingTime;
     }
@@ -99,14 +103,7 @@ public abstract class Order{
         this.price = price;
     }
 
-    public int getWaitingTime() {
-        return waitingTime;
-    }
-
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
+    // METHODS
 
     public void countPrice(){
         for(Food orderedFood : this.orderFood){

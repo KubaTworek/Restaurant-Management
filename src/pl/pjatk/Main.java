@@ -1,20 +1,12 @@
 package pl.pjatk;
 
-// rabaty
-// zrobic clean code - dzisiaj na koniec
-// wprowadzic advanced features
-// 3 CZESC - personel
-// wprowadzic funkcje dla pracownikow
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import static pl.pjatk.Management.startManagement;
-import static pl.pjatk.Management.stopManagement;
 
 public class Main {
 
     public static void main(String[] args) {
+        Management management = new Management();
 
         Scanner scanner = new Scanner(System.in);
         int choose = -1;
@@ -24,19 +16,21 @@ public class Main {
             System.out.println("2. Zakończ dzień w restauracji");
             System.out.println("0. Zakoncz.");
 
-            try {
-                choose = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                scanner.nextLine();
-                System.out.println("Podaj prawidłowy numer.");
+            while(choose < 0){
+                try {
+                    choose = scanner.nextInt();
+                } catch (InputMismatchException e) {
+                    scanner.nextLine();
+                    System.out.println("Podaj prawidłowy numer.");
+                }
             }
 
             switch (choose) {
                 case 1:
-                    startManagement();
+                    management.startManagement();
                     break;
                 case 2:
-                    stopManagement();
+                    management.stopManagement();
                     break;
                 case 0:
                     break;
@@ -44,7 +38,6 @@ public class Main {
                     System.out.println("Wybrałeś nieodpowiedni numer.");
                     break;
             }
-
         }
     }
 }

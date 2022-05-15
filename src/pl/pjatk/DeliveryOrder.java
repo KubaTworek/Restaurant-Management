@@ -6,8 +6,6 @@ import static pl.pjatk.Order.Typ.DELIVERY;
 public class DeliveryOrder extends Order {
     private String deliveryAddress;
 
-
-
     public DeliveryOrder(Menu menu, String deliveryAddress) {
         super(menu);
         this.deliveryAddress = deliveryAddress;
@@ -18,8 +16,6 @@ public class DeliveryOrder extends Order {
         this.deliveryAddress = deliveryAddress;
         Typ typ = DELIVERY;
     }
-
-
 
     @Override
     public String toString(){

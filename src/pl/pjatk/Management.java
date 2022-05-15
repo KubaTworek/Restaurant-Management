@@ -15,7 +15,7 @@ public class Management {
         return finalMoney;
     }
 
-    public static void startManagement() {
+    public void startManagement() {
 
         Personel personel = new Personel();
         Kitchen kitchen = new Kitchen();
@@ -33,14 +33,16 @@ public class Management {
         System.out.println();
         System.out.println("1. Wybierz menu standardowe");
         System.out.println("2. Wybierz menu śniadaniowe");
-        System.out.println("0. Cofnij.");
+        System.out.println("0. Zakończ");
         System.out.println("Wybierz operację: ");
 
-        try {
-            chooseMenu = scannerMenu.nextInt();
-        } catch (InputMismatchException e) {
-            scannerMenu.nextLine();
-            System.out.println("Podaj prawidłowy numer.");
+        while(chooseMenu < 0){
+            try {
+                chooseMenu = scannerMenu.nextInt();
+            } catch (InputMismatchException e) {
+                scannerMenu.nextLine();
+                System.out.println("Podaj prawidłowy numer.");
+            }
         }
 
         switch (chooseMenu) {
@@ -59,19 +61,20 @@ public class Management {
                 }
                 break;
             case 0:
+                System.exit(0);
                 break;
             default:
                 System.out.println("Wybrales nieprawidlowy numer");
+                break;
         }
 
-
-        /*for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 3) + 1;
             OnSiteOrder onsiteOrder = new OnSiteOrder(1);
             onsiteOrder.randomOrder(menu, rand);
             onsiteOrder.countPrice();
             kitchen.addToQueue(onsiteOrder);
-        }*/
+        }
         for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 3) + 1;
             DeliveryOrder deliveryOrder = new DeliveryOrder("Warszawa");
@@ -319,7 +322,7 @@ public class Management {
                                             try {
                                                 personel.firePersonel(personel.getDelieverymen().get(firedWorker - 1));
                                             } catch (NumberFormatException e) {
-                                                //personel.firePersonel(firedWorker); // NOT WORKING!!!!
+                                                System.out.println("Podałeś zły numer.");
                                             } catch (IndexOutOfBoundsException e) {
                                                 System.out.println("Nie ma takiego pracownika");
                                             }
@@ -433,8 +436,8 @@ public class Management {
         }
     }
 
-    public static void stopManagement() {
-        System.out.println("Zamknąłęś dzień w restauracji.");
+    public void stopManagement() {
+        System.out.println("Zamknąłeś dzień w restauracji.");
         System.out.println("Dzisiejszy utarg wyniósł: " + String.format("%.4f", finalMoney).replaceAll("\\.?0+$", ""));
         finalMoney = 0;
     }

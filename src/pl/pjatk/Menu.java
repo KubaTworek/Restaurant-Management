@@ -34,7 +34,12 @@ public class Menu {
             System.out.println("0. Cofnij.");
             System.out.println("Wybierz operację: ");
 
-            choose = scanner.nextInt();
+            try {
+                choose = scanner.nextInt();;
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("Podaj prawidłowy numer.");
+            }
 
             switch (choose) {
                 case 1:
@@ -128,13 +133,9 @@ public class Menu {
                     System.out.println("Wybrales nieprawidlowy numer");
             }
         }
-
     }
 
-    public void addToMenu(Food food) {
-        menu.add(food);
-        System.out.println("Danie zostało dodane.");
-    }
+    // METHODS
 
     public void changeAvailability(int number) {
         for (int i = 0; i < menu.size(); i++) {
@@ -149,6 +150,10 @@ public class Menu {
         System.out.println("Została zmieniona dostępność dania.");
     }
 
+    public void addToMenu(Food food) {
+        menu.add(food);
+        System.out.println("Danie zostało dodane.");
+    }
 
     public void deleteFromMenu(int number) {
         for (int i = 0; i < menu.size(); i++) {
@@ -163,6 +168,16 @@ public class Menu {
         System.out.println("Danie zostało usunięte.");
     }
 
+    public void writeOutMenu() {
+        System.out.println();
+        System.out.println("******************************************");
+        for (Food food : menu) {
+            System.out.println(food.toString());
+        }
+        System.out.println("******************************************");
+    }
+
+    // WORKING WITH FILES
 
     public void saveToFile(String path) throws FileNotFoundException {
         PrintWriter save = new PrintWriter(path);
@@ -185,12 +200,5 @@ public class Menu {
         }
     }
 
-    public void writeOutMenu() {
-        System.out.println();
-        System.out.println("******************************************");
-        for (Food food : menu) {
-            System.out.println(food.toString());
-        }
-        System.out.println("******************************************");
-    }
+
 }

@@ -30,7 +30,7 @@ public class Personel {
     }
 
 
-    // ZATRUDNIANIE PRACOWNIKA
+    // HIRE EMPLOYEE
 
     public void addPersonel(Cook cook) {
         this.cooks.add(cook);
@@ -59,7 +59,7 @@ public class Personel {
         }
     }
 
-    // ZWALNIANIE PRACOWNIKA
+    // FIRE EMPLOYEE
 
     public void firePersonel(Cook cook) {
         this.cooks.remove(cook);
@@ -88,7 +88,7 @@ public class Personel {
         }
     }
 
-    // WYLISTOWANIE PRACOWNIKÓW
+    // LISTING WORKERS
 
     public void writeOutCooks() {
         System.out.println("Kucharze: ");
@@ -120,7 +120,7 @@ public class Personel {
         this.writeOutDelievers();
     }
 
-    // PRACA Z PLIKAMI
+    // WORKING WITH FILES
 
     public void saveToFile() throws FileNotFoundException {
         PrintWriter save = new PrintWriter("personel.txt");

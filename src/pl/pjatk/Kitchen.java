@@ -85,6 +85,7 @@ public class Kitchen {
         thread.start();
     }
 
+    // ADDING TO QUEUE
 
     public void addToQueue(OnSiteOrder order) {
         for(int i=0; i<this.ordersQueue.size(); i++){
@@ -100,6 +101,7 @@ public class Kitchen {
         this.ordersQueue.add(order);
     }
 
+    // SHOWING ORDERS
 
     public void showOrdersInWork() {
         System.out.println();

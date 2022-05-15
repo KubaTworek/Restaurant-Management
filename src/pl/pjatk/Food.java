@@ -13,7 +13,7 @@ public class Food {
         this.number = ++numberOfFood;
         this.name = name;
         this.description = description;
-        if(price < 0){
+        if (price < 0) {
             this.price = 0;
         } else {
             this.price = price;
@@ -57,12 +57,12 @@ public class Food {
         Food.numberOfFood = numberOfFood;
     }
 
-    public String toSave(){
-        return this.name + " " + ((available == true ) ?  this.price + "" : "0") + " " + this.description;
+    public String toSave() {
+        return this.name + " " + ((available == true) ? this.price + "" : "0") + " " + this.description;
     }
 
     @Override
-    public String toString(){
-        return this.number + ". " + this.name + ", " + ((available == true ) ?  this.price + "$" : "UNAVAILABLE") + "\n" + this.description;
+    public String toString() {
+        return this.number + ". " + this.name + ", " + ((available == true) ? this.price + "$" : "UNAVAILABLE") + "\n" + this.description;
     }
 }

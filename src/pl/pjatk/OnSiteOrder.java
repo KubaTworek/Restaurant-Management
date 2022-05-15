@@ -1,8 +1,5 @@
 package pl.pjatk;
 
-import java.util.ArrayList;
-
-import static pl.pjatk.Order.Typ.DELIVERY;
 import static pl.pjatk.Order.Typ.ONSITE;
 
 public class OnSiteOrder extends Order {
@@ -18,11 +15,6 @@ public class OnSiteOrder extends Order {
         this.tableNumber = tableNumber;
         Typ typ = ONSITE;
     }
-
-    public int getTableNumber() {
-        return tableNumber;
-    }
-
 
     @Override
     public String toString(){
