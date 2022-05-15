@@ -1,19 +1,29 @@
 package pl.pjatk;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public abstract class Order{
+    private String hourOrder;
+    private String hourMade;
+    private static int numberOfOrders = 0;
+    private int number;
     private ArrayList<Food> orderFood;
     private double price = 0;
-    private double waitingTime = 0;
+    private int waitingTime;
     private boolean isCompleted;
     public enum Typ {
         DELIVERY, ONSITE;
     }
 
     public Order(Menu menu) {
+        LocalTime localTime = LocalTime.now();
+        this.hourOrder = localTime.getHour() + ":" + localTime.getMinute();
+        this.number = ++numberOfOrders;
         this.orderFood = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Co chciałbyś zamówić?");
@@ -49,6 +59,9 @@ public abstract class Order{
     }
 
     public Order(){
+        LocalTime localTime = LocalTime.now();
+        this.hourOrder = localTime.getHour() + ":" + localTime.getMinute();
+        this.number = ++numberOfOrders;
         this.isCompleted = false;
     }
 
@@ -60,11 +73,27 @@ public abstract class Order{
         return price;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setHourMade(String hourMade) {
+        this.hourMade = hourMade;
+    }
+
+    public String getHourMade() {
+        return hourMade;
+    }
+
+    public String getHourOrder() {
+        return hourOrder;
+    }
+
     public ArrayList<Food> getOrderFood() {
         return orderFood;
     }
 
-    public void setWaitingTime(double waitingTime) {
+    public void setWaitingTime(int waitingTime) {
         this.waitingTime = waitingTime;
     }
 

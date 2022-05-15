@@ -7,11 +7,25 @@ import java.util.Scanner;
 public class Management {
     private static double finalMoney;
 
+    public static void setFinalMoney(double finalMoney) {
+        Management.finalMoney = finalMoney;
+    }
+
+    public static double getFinalMoney() {
+        return finalMoney;
+    }
+
     public static void startManagement() {
 
         Personel personel = new Personel();
         Kitchen kitchen = new Kitchen();
         Menu menu = new Menu();
+
+        try {
+            personel.writeFromFile();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         Scanner scannerMenu = new Scanner(System.in);
         int chooseMenu = -1;
@@ -50,24 +64,20 @@ public class Management {
                 System.out.println("Wybrales nieprawidlowy numer");
         }
 
-        personel.addPersonel(new Cook("Andrzej", "Brzozowski", "784123494"));
-        personel.addPersonel(new Cook("Katarzyna", "Brzeziński", "606395101"));
-        personel.addPersonel(new Waiter("Marcin", "Nowak", "510345271"));
-        personel.addPersonel(new DelieveryMan("Jarosław", "Kowalski", "660240885"));
 
         for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 3) + 1;
             OnSiteOrder onsiteOrder = new OnSiteOrder(1);
             onsiteOrder.randomOrder(menu, rand);
             onsiteOrder.countPrice();
-            finalMoney += kitchen.addToQueue(onsiteOrder);
+            kitchen.addToQueue(onsiteOrder);
         }
         for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 3) + 1;
             DeliveryOrder deliveryOrder = new DeliveryOrder("Warszawa");
             deliveryOrder.randomOrder(menu, rand);
             deliveryOrder.countPrice();
-            finalMoney += kitchen.addToQueue(deliveryOrder);
+            kitchen.addToQueue(deliveryOrder);
         }
 
 
@@ -126,14 +136,14 @@ public class Management {
                                 scanUser.nextLine();
                                 OnSiteOrder onsiteOrder = new OnSiteOrder(menu, nrTable);
                                 onsiteOrder.countPrice();
-                                finalMoney += kitchen.addToQueue(onsiteOrder);
+                                kitchen.addToQueue(onsiteOrder);
                                 break;
                             case 2:
                                 System.out.println("Wybierz adres: ");
                                 String address = scanUser.nextLine();
                                 DeliveryOrder deliveryOrder = new DeliveryOrder(menu, address);
                                 deliveryOrder.countPrice();
-                                finalMoney += kitchen.addToQueue(deliveryOrder);
+                                kitchen.addToQueue(deliveryOrder);
                                 break;
                             case 3:
                                 System.out.println("Wybrałeś losowe zamówienie");
@@ -146,7 +156,7 @@ public class Management {
                                     DeliveryOrder deliveryOrderRand = new DeliveryOrder(addressRand);
                                     deliveryOrderRand.randomOrder(menu, amountOfFood);
                                     deliveryOrderRand.countPrice();
-                                    finalMoney += kitchen.addToQueue(deliveryOrderRand);
+                                    kitchen.addToQueue(deliveryOrderRand);
                                     System.out.println("Zamówiłeś: ");
                                     deliveryOrderRand.writeOutOrder();
                                 } else {
@@ -162,7 +172,7 @@ public class Management {
                                     OnSiteOrder onsiteOrderRand = new OnSiteOrder(nrTableRand);
                                     onsiteOrderRand.randomOrder(menu, amountOfFood);
                                     onsiteOrderRand.countPrice();
-                                    finalMoney += kitchen.addToQueue(onsiteOrderRand);
+                                    kitchen.addToQueue(onsiteOrderRand);
                                     System.out.println("Zamówiłeś: ");
                                     onsiteOrderRand.writeOutOrder();
                                 }
@@ -410,7 +420,7 @@ public class Management {
                     }
                     break;
                 case 4:
-                    System.out.println("Utarg wynnosi: " + finalMoney + "$.");
+                    System.out.println("Utarg wynosi: " + String.format("%.4f", finalMoney).replaceAll("\\.?0+$", "") + "$.");
                 case 0:
                     break;
                 default:
@@ -421,7 +431,7 @@ public class Management {
 
     public static void stopManagement() {
         System.out.println("Zamknąłęś dzień w restauracji.");
-        System.out.println("Dzisiejszy utarg wyniósł: " + finalMoney);
+        System.out.println("Dzisiejszy utarg wyniósł: " + String.format("%.4f", finalMoney).replaceAll("\\.?0+$", ""));
         finalMoney = 0;
     }
 }

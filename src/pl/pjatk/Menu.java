@@ -149,18 +149,6 @@ public class Menu {
         System.out.println("Została zmieniona dostępność dania.");
     }
 
-    public void changeAvailability(String name) {
-        for (int i = 0; i < menu.size(); i++) {
-            if (menu.get(i).getName() == name) {
-                if (menu.get(i).getAvailable()) {
-                    menu.get(i).setAvailable(false);
-                } else {
-                    menu.get(i).setAvailable(true);
-                }
-            }
-        }
-        System.out.println("Została zmieniona dostępność dania.");
-    }
 
     public void deleteFromMenu(int number) {
         for (int i = 0; i < menu.size(); i++) {
@@ -175,18 +163,6 @@ public class Menu {
         System.out.println("Danie zostało usunięte.");
     }
 
-    public void deleteFromMenu(String name) {
-        for (int i = 0; i < menu.size(); i++) {
-            if (menu.get(i).getName() == name) {
-                menu.remove(i);
-                for (int j = i; j < menu.size(); j++) {
-                    menu.get(j).setNumber(menu.get(j).getNumber() - 1);
-                    Food.setNumberOfFood(Food.getNumberOfFood() - 1);
-                }
-            }
-        }
-        System.out.println("Danie zostało usunięte.");
-    }
 
     public void saveToFile(String path) throws FileNotFoundException {
         PrintWriter save = new PrintWriter(path);

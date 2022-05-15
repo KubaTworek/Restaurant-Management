@@ -1,5 +1,6 @@
 package pl.pjatk;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -19,13 +20,16 @@ public class Kitchen {
                         for (int j = 0; j<this.ordersQueue.size(); j+=0) {
                             for (double i = 0; i < this.ordersQueue.get(j).getOrderFood().size() * 0.5; i+=0.5) {
                                 try {
-                                    this.ordersQueue.get(j).setWaitingTime(this.ordersQueue.get(j).getWaitingTime()+0.5);
-                                    Thread.sleep(500);
+                                    Thread.sleep(30000);
                                 } catch (InterruptedException ex) {
                                     Thread.currentThread().interrupt();
                                 }
                             }
+                            LocalTime localTime = LocalTime.now();
+                            Management.setFinalMoney(Management.getFinalMoney() + this.ordersQueue.get(j).getPrice());
                             this.ordersQueue.get(j).setCompleted(true);
+                            this.ordersQueue.get(j).setHourMade(localTime.getHour() + ":" + localTime.getMinute());
+                            this.ordersQueue.get(j).setWaitingTime((localTime.getHour()*60 + localTime.getMinute()) - (LocalTime.parse(this.ordersQueue.get(j).getHourOrder()).getHour()*60 + LocalTime.parse(this.ordersQueue.get(j).getHourOrder()).getMinute()));
                             this.ordersMade.add(this.ordersQueue.get(j));
                             this.ordersQueue.remove(this.ordersQueue.get(j));
                         }
@@ -39,20 +43,18 @@ public class Kitchen {
     }
 
 
-    public double addToQueue(OnSiteOrder order) {
+    public void addToQueue(OnSiteOrder order) {
         for(int i=0; i<this.ordersQueue.size(); i++){
             if(this.ordersQueue.get(i).equals(Order.Typ.DELIVERY)){
                 this.ordersQueue.add(i, order);
-                return order.getPrice();
+                break;
             }
         }
         this.ordersQueue.add(order);
-        return order.getPrice();
     }
 
-    public double addToQueue(DeliveryOrder order) {
+    public void addToQueue(DeliveryOrder order) {
         this.ordersQueue.add(order);
-        return order.getPrice();
     }
 
 
@@ -63,12 +65,12 @@ public class Kitchen {
             System.out.println(order.toString());
         }
         System.out.println("******************************************");
+        System.out.println();
     }
 
     public void showOrdersMade() {
         System.out.println();
         System.out.println("******************************************");
-        int i = 0;
         for (Order order : this.ordersMade) {
             System.out.println(order.toString());
         }
