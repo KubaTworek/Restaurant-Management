@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Personel {
-    private ArrayList<Cook> cooks;
-    private ArrayList<Waiter> waiters;
-    private ArrayList<DelieveryMan> delieverymen;
+    private static ArrayList<Cook> cooks;
+    private static ArrayList<Waiter> waiters;
+    private static ArrayList<DelieveryMan> delieverymen;
 
     public Personel() {
         this.cooks = new ArrayList();
@@ -17,17 +17,18 @@ public class Personel {
         this.delieverymen = new ArrayList();
     }
 
-    public ArrayList<Cook> getCooks() {
+    public static ArrayList<Cook> getCooks() {
         return cooks;
     }
 
-    public ArrayList<Waiter> getWaiters() {
+    public static ArrayList<Waiter> getWaiters() {
         return waiters;
     }
 
-    public ArrayList<DelieveryMan> getDelieverymen() {
+    public static ArrayList<DelieveryMan> getDelieverymen() {
         return delieverymen;
     }
+
 
     // ZATRUDNIANIE PRACOWNIKA
 
@@ -92,40 +93,31 @@ public class Personel {
     public void writeOutCooks() {
         System.out.println("Kucharze: ");
         int i = 0;
-        for (Worker worker : this.cooks) {
-            System.out.println(++i + ". " + worker.toString());
+        for (Cook cook : this.cooks) {
+            System.out.println(++i + ". " + cook.toString());
         }
     }
 
     public void writeOutWaiters() {
         System.out.println("Kelnerzy: ");
         int i = 0;
-        for (Worker worker : this.waiters) {
-            System.out.println(++i + ". " + worker.toString());
+        for (Waiter waiter : this.waiters) {
+            System.out.println(++i + ". " + waiter.toString());
         }
     }
 
     public void writeOutDelievers() {
         System.out.println("Dostawcy: ");
         int i = 0;
-        for (Worker worker : this.delieverymen) {
-            System.out.println(++i + ". " + worker.toString());
+        for (Worker delieveryman : this.delieverymen) {
+            System.out.println(++i + ". " + delieveryman.toString());
         }
     }
 
     public void writeOutWorkers() {
-        System.out.println("Kucharze: ");
-        for (Worker worker : this.cooks) {
-            System.out.println(worker.toString());
-        }
-        System.out.println("Kelnerzy: ");
-        for (Worker worker : this.waiters) {
-            System.out.println(worker.toString());
-        }
-        System.out.println("Dostawcy: ");
-        for (Worker worker : this.delieverymen) {
-            System.out.println(worker.toString());
-        }
+        this.writeOutCooks();
+        this.writeOutWaiters();
+        this.writeOutDelievers();
     }
 
     // PRACA Z PLIKAMI

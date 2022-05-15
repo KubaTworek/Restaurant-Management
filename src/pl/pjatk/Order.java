@@ -1,7 +1,5 @@
 package pl.pjatk;
 
-import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -60,7 +58,7 @@ public abstract class Order{
 
     public Order(){
         LocalTime localTime = LocalTime.now();
-        this.hourOrder = localTime.getHour() + ":" + localTime.getMinute();
+        this.hourOrder = ((localTime.getHour() < 10) ? ("0" + localTime.getHour()) : localTime.getHour()) + ":" + ((localTime.getMinute() < 10) ? ("0" + localTime.getMinute()) : localTime.getMinute());
         this.number = ++numberOfOrders;
         this.isCompleted = false;
     }
@@ -97,13 +95,18 @@ public abstract class Order{
         this.waitingTime = waitingTime;
     }
 
-    public double getWaitingTime() {
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getWaitingTime() {
         return waitingTime;
     }
 
     public boolean isCompleted() {
         return isCompleted;
     }
+
 
     public void countPrice(){
         for(Food orderedFood : this.orderFood){

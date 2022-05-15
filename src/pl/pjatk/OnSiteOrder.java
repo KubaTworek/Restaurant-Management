@@ -11,17 +11,18 @@ public class OnSiteOrder extends Order {
     public OnSiteOrder(Menu menu, int tableNumber) {
         super(menu);
         this.tableNumber = tableNumber;
-        DeliveryOrder.Typ typ = ONSITE;
+        Typ typ = ONSITE;
     }
 
     public OnSiteOrder(int tableNumber){
         this.tableNumber = tableNumber;
-        DeliveryOrder.Typ typ = ONSITE;
+        Typ typ = ONSITE;
     }
 
     public int getTableNumber() {
         return tableNumber;
     }
+
 
     @Override
     public String toString(){

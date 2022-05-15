@@ -65,13 +65,13 @@ public class Management {
         }
 
 
-        for (int i = 0; i < 5; i++) {
+        /*for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 3) + 1;
             OnSiteOrder onsiteOrder = new OnSiteOrder(1);
             onsiteOrder.randomOrder(menu, rand);
             onsiteOrder.countPrice();
             kitchen.addToQueue(onsiteOrder);
-        }
+        }*/
         for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 3) + 1;
             DeliveryOrder deliveryOrder = new DeliveryOrder("Warszawa");
@@ -112,6 +112,7 @@ public class Management {
                         System.out.println("3. Losowe zamowienie");
                         System.out.println("4. Wypisz niezrealizowane zamowienia");
                         System.out.println("5. Wypisz zrealizowane zamowienia");
+                        System.out.println("6. Wypisz zamowienia w dostawie");
                         System.out.println("0. Cofnij.");
 
                         try {
@@ -182,6 +183,9 @@ public class Management {
                                 break;
                             case 5:
                                 kitchen.showOrdersMade();
+                                break;
+                            case 6:
+                                kitchen.showOrdersInDelievery();
                                 break;
                             case 0:
                                 break;
