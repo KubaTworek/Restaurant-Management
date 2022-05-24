@@ -4,9 +4,9 @@ public class Food {
     private static int numberOfFood = 0;
 
     private int number;
-    private String name;
-    private String description;
-    private double price;
+    private final String name;
+    private final String description;
+    private final double price;
     private boolean available;
 
     public Food(String name, String description, double price) {
@@ -33,10 +33,6 @@ public class Food {
         return name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -58,11 +54,11 @@ public class Food {
     }
 
     public String toSave() {
-        return this.name + " " + ((available == true) ? this.price + "" : "0") + " " + this.description;
+        return this.name + " " + ((available) ? this.price + "" : "0") + " " + this.description;
     }
 
     @Override
     public String toString() {
-        return this.number + ". " + this.name + ", " + ((available == true) ? this.price + "$" : "UNAVAILABLE") + "\n" + this.description;
+        return this.number + ". " + this.name + ", " + ((available) ? this.price + "$" : "UNAVAILABLE") + "\n" + this.description;
     }
 }

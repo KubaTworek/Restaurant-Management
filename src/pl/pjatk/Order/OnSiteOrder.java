@@ -11,12 +11,12 @@ public class OnSiteOrder extends Order {
     public OnSiteOrder(Menu menu, int tableNumber) {
         super(menu);
         this.tableNumber = tableNumber;
-        this.typ = ONSITE;
+        this.type = ONSITE;
     }
 
     public OnSiteOrder(int tableNumber){
         this.tableNumber = tableNumber;
-        this.typ = ONSITE;
+        this.type = ONSITE;
     }
 
     @Override

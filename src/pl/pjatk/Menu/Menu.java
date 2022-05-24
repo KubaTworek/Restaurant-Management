@@ -8,7 +8,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-    private ArrayList<Food> menu;
+    private final ArrayList<Food> menu;
 
     public Menu() {
         this.menu = new ArrayList<>();
@@ -35,7 +35,7 @@ public class Menu {
             System.out.println("Wybierz operację: ");
 
             try {
-                choose = scanner.nextInt();;
+                choose = scanner.nextInt();
             } catch (InputMismatchException e) {
                 scanner.nextLine();
                 System.out.println("Podaj prawidłowy numer.");
@@ -46,59 +46,17 @@ public class Menu {
                     this.writeOutMenu();
                     break;
                 case 2:
-                    Scanner addingScanner = new Scanner(System.in);
-                    double price = -1;
-                    System.out.println("Jakie danie chciłałbyś dodać?");
-                    String name = addingScanner.nextLine();
-                    System.out.println("Jaką miałoby cenę?");
-                    while (price < 0) {
-                        try {
-                            price = addingScanner.nextDouble();
-                        } catch (InputMismatchException e) {
-                            addingScanner.nextLine();
-                            System.out.println("Podaj prawidłowy numer.");
-                        }
-                    }
-                    addingScanner.nextLine();
-                    System.out.println("Podaj opis dania");
-                    String description = addingScanner.nextLine();
-                    this.addToMenu(new Food(name, description, price));
+                    this.addToMenu(makingFoodToMenu());
                     break;
                 case 3:
                     this.writeOutMenu();
-                    Scanner deletingScanner = new Scanner(System.in);
                     System.out.println("Co chciałbys usunąć?");
-                    int deletedFood = 0;
-                    try {
-                        deletedFood = deletingScanner.nextInt();
-                        if (deletedFood < 0 || deletedFood > menu.size()) {
-                            System.out.println("Podałeś nieprawdiłowy numer.");
-                            break;
-                        }
-                    } catch (InputMismatchException e) {
-                        deletingScanner.nextLine();
-                        System.out.println("Podaj prawidłowy numer.");
-                    }
-                    deletingScanner.nextLine();
-                    this.deleteFromMenu(deletedFood);
+                    this.deleteFromMenu(choosingFoodFromMenu());
                     break;
                 case 4:
                     this.writeOutMenu();
-                    Scanner changingScanner = new Scanner(System.in);
                     System.out.println("Któremu daniu chciałbyś zmienić dostępność?");
-                    int changedFood = 0;
-                    try {
-                        changedFood = changingScanner.nextInt();
-                        if (changedFood < 0 || changedFood > menu.size()) {
-                            System.out.println("Podałeś nieprawdiłowy numer.");
-                            break;
-                        }
-                    } catch (InputMismatchException e) {
-                        changingScanner.nextLine();
-                        System.out.println("Podaj prawidłowy numer.");
-                    }
-                    changingScanner.nextLine();
-                    this.changeAvailability(changedFood);
+                    this.changeAvailability(choosingFoodFromMenu());
                     break;
                 case 5:
                     try {
@@ -138,16 +96,49 @@ public class Menu {
     // METHODS
 
     public void changeAvailability(int number) {
-        for (int i = 0; i < menu.size(); i++) {
-            if (menu.get(i).getNumber() == number) {
-                if (menu.get(i).getAvailable()) {
-                    menu.get(i).setAvailable(false);
-                } else {
-                    menu.get(i).setAvailable(true);
-                }
+        for (Food food : menu) {
+            if (food.getNumber() == number) {
+                food.setAvailable(!food.getAvailable());
             }
         }
         System.out.println("Została zmieniona dostępność dania.");
+    }
+
+    public Food makingFoodToMenu(){
+        Scanner addingScanner = new Scanner(System.in);
+        double price = -1;
+        System.out.println("Jakie danie chciałbyś dodać?");
+        String name = addingScanner.nextLine();
+        System.out.println("Jaką miałoby cenę?");
+        while (price < 0) {
+            try {
+                price = addingScanner.nextDouble();
+            } catch (InputMismatchException e) {
+                addingScanner.nextLine();
+                System.out.println("Podaj prawidłowy numer.");
+            }
+        }
+        addingScanner.nextLine();
+        System.out.println("Podaj opis dania");
+        String description = addingScanner.nextLine();
+
+        return new Food(name, description, price);
+    }
+
+    public int choosingFoodFromMenu(){
+        Scanner choosingScanner = new Scanner(System.in);
+        int choosenFood = 0;
+        try {
+            choosenFood = choosingScanner.nextInt();
+            if (choosenFood < 0 || choosenFood > menu.size()) {
+                System.out.println("Podałeś nieprawidłowy numer.");
+            }
+        } catch (InputMismatchException e) {
+            choosingScanner.nextLine();
+            System.out.println("Podaj prawidłowy numer.");
+        }
+        choosingScanner.nextLine();
+        return choosenFood;
     }
 
     public void addToMenu(Food food) {

@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Kitchen implements Runnable {
-    private LinkedList<Order> ordersQueue;
-    private ArrayList<Order> ordersMade;
-    private ArrayList<Order> ordersInDelievery;
+    private final LinkedList<Order> ordersQueue;
+    private final ArrayList<Order> ordersMade;
+    private final ArrayList<Order> ordersInDelievery;
 
     public Kitchen() {
         this.ordersQueue = new LinkedList<>();
@@ -25,15 +25,14 @@ public class Kitchen implements Runnable {
 
     // ADDING TO QUEUE
 
-    public boolean addToQueue(OnSiteOrder order) {
+    public void addToQueue(OnSiteOrder order) {
         for (int i = 0; i < this.ordersQueue.size(); i++) {
             if (this.ordersQueue.get(i).getTyp().equals(Order.Typ.DELIVERY)) {
                 this.ordersQueue.add(i, order);
-                return true;
+                return;
             }
         }
         this.ordersQueue.add(order);
-        return true;
     }
 
     public void addToQueue(DeliveryOrder order) {
@@ -72,7 +71,7 @@ public class Kitchen implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while(true){
             try {
                 Thread.sleep(1000);
                 if (!this.ordersQueue.isEmpty()) {
@@ -117,10 +116,10 @@ public class Kitchen implements Runnable {
         }
     }
 
-    private Order delieverOrder(Order order){
-        while(true){
-            for(DelieveryMan delieveryman : Personel.getDelieverymen()){
-                if(!delieveryman.isBusy()){
+    private Order delieverOrder(Order order) {
+        while (true) {
+            for (DelieveryMan delieveryman : Personel.getDelieverymen()) {
+                if (!delieveryman.isBusy()) {
                     this.ordersInDelievery.add(order);
                     delieveryman.run();
                     order.setWaitingTime(order.getWaitingTime() + 2);
@@ -134,7 +133,7 @@ public class Kitchen implements Runnable {
         }
     }
 
-    private Order bringOrder(Order order){
+    private Order bringOrder(Order order) {
         lateOrder(order);
         int waiterRand = (int) ((Math.random() * Personel.getWaiters().size()));
         Personel.getWaiters().get(waiterRand).setTip(Personel.getWaiters().get(waiterRand).getTip() + ((order.getWaitingTime() > 15) ? 0 : (order.getPrice() / 10) - (order.getPrice() / 10) * (order.getWaitingTime() / 15)));
