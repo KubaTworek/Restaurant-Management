@@ -27,37 +27,8 @@ public abstract class Order{
         this.hourOrder = ((localTime.getHour() < 10) ? ("0" + localTime.getHour()) : localTime.getHour()) + ":" + ((localTime.getMinute() < 10) ? ("0" + localTime.getMinute()) : localTime.getMinute());
         this.number = ++numberOfOrders;
         this.orderFood = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Co chciałbyś zamówić?");
-        menu.writeOutMenu();
-        int userPick = -1;
-        try {
-            userPick = scanner.nextInt() - 1;
-        } catch (InputMismatchException e) {
-            scanner.nextLine();
-            System.out.println("Podaj prawidłowy numer.");
-        } catch (IndexOutOfBoundsException e) {
-            scanner.nextLine();
-            System.out.println("Podaj prawidłowy numer.");
-        }
-        this.orderFood.add(menu.getMenu().get(userPick));
-        scanner.nextLine();
-        while(userPick != -1){
-            System.out.println("Coś jeszcze? (jeśli koniec, wybierz 0)");
-            try {
-                userPick = scanner.nextInt() - 1;
-            } catch (InputMismatchException e) {
-                scanner.nextLine();
-                System.out.println("Podaj prawidłowy numer.");
-            } catch (IndexOutOfBoundsException e) {
-                scanner.nextLine();
-                System.out.println("Podaj prawidłowy numer.");
-            }
-            if(userPick == -1) break;
-            this.orderFood.add(menu.getMenu().get(userPick));
-            scanner.nextLine();
-        }
         this.isCompleted = false;
+        makeOrder(menu);
     }
 
     public Order(){
@@ -113,6 +84,33 @@ public abstract class Order{
     }
 
     // METHODS
+
+    public void makeOrder(Menu menu){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Co chciałbyś zamówić?");
+        menu.writeOutMenu();
+        int userPick = -1;
+        try {
+            userPick = scanner.nextInt() - 1;
+        } catch (InputMismatchException | IndexOutOfBoundsException e) {
+            scanner.nextLine();
+            System.out.println("Podaj prawidłowy numer.");
+        }
+        this.orderFood.add(menu.getMenu().get(userPick));
+        scanner.nextLine();
+        while(userPick != -1){
+            System.out.println("Coś jeszcze? (jeśli koniec, wybierz 0)");
+            try {
+                userPick = scanner.nextInt() - 1;
+            } catch (InputMismatchException | IndexOutOfBoundsException e) {
+                scanner.nextLine();
+                System.out.println("Podaj prawidłowy numer.");
+            }
+            if(userPick == -1) break;
+            this.orderFood.add(menu.getMenu().get(userPick));
+            scanner.nextLine();
+        }
+    }
 
     public void countPrice(){
         for(Food orderedFood : this.orderFood){

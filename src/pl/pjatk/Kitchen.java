@@ -89,11 +89,10 @@ public class Kitchen implements Runnable {
                         order.setCompleted(true);
                         order.setHourMade(localTime.getHour() + ":" + localTime.getMinute());
                         order.setWaitingTime((localTime.getHour() * 60 + localTime.getMinute()) - (LocalTime.parse(order.getHourOrder()).getHour() * 60 + LocalTime.parse(order.getHourOrder()).getMinute()));
-                        if (order.getClass().getName().equals("pl.pjatk.Order.OnSiteOrder")) {
+                        if (order.getTyp().equals(Order.Typ.ONSITE)) {
                             this.ordersMade.add(bringOrder(order));
                         }
-                        if (order.getClass().getName().equals("pl.pjatk.Order.DeliveryOrder")) {
-
+                        if (order.getTyp().equals(Order.Typ.DELIVERY)) {
                             this.ordersMade.add(delieverOrder(order));
                         }
                         this.ordersQueue.remove(order);
