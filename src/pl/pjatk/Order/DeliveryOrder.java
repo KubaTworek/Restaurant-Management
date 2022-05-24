@@ -12,12 +12,12 @@ public class DeliveryOrder extends Order {
     public DeliveryOrder(Menu menu, String deliveryAddress) {
         super(menu);
         this.deliveryAddress = deliveryAddress;
-        Typ typ = DELIVERY;
+        this.typ = DELIVERY;
     }
 
     public DeliveryOrder(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
-        Typ typ = DELIVERY;
+        this.typ = DELIVERY;
     }
 
     @Override

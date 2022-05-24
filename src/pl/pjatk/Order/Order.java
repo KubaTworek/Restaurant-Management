@@ -17,13 +17,14 @@ public abstract class Order{
     private double price = 0;
     private int waitingTime;
     private boolean isCompleted;
+    protected Typ typ;
     public enum Typ {
         DELIVERY, ONSITE;
     }
 
     public Order(Menu menu) {
         LocalTime localTime = LocalTime.now();
-        this.hourOrder = localTime.getHour() + ":" + localTime.getMinute();
+        this.hourOrder = ((localTime.getHour() < 10) ? ("0" + localTime.getHour()) : localTime.getHour()) + ":" + ((localTime.getMinute() < 10) ? ("0" + localTime.getMinute()) : localTime.getMinute());
         this.number = ++numberOfOrders;
         this.orderFood = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
@@ -67,6 +68,11 @@ public abstract class Order{
     }
 
     // GETTERS
+
+
+    public Typ getTyp() {
+        return typ;
+    }
 
     public double getPrice() {
         return price;

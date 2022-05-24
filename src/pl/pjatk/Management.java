@@ -76,13 +76,13 @@ public class Management {
                 break;
         }
 
-        for (int i = 0; i < 5; i++) {
+        /*for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 3) + 1;
             OnSiteOrder onsiteOrder = new OnSiteOrder(1);
             onsiteOrder.randomOrder(menu, rand);
             onsiteOrder.countPrice();
             kitchen.addToQueue(onsiteOrder);
-        }
+        }*/
         for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 3) + 1;
             DeliveryOrder deliveryOrder = new DeliveryOrder("Warszawa");
