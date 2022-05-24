@@ -1,4 +1,7 @@
-package pl.pjatk;
+package pl.pjatk.Order;
+
+import pl.pjatk.Menu.Food;
+import pl.pjatk.Menu.Menu;
 
 import java.time.LocalTime;
 import java.util.ArrayList;

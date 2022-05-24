@@ -1,6 +1,6 @@
-package pl.pjatk;
+package pl.pjatk.Personel;
 
-public class Cook extends Worker{
+public class Cook extends Worker {
     public Cook(String name, String surname, String phone) {
         super(name, surname, phone);
     }

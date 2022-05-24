@@ -1,5 +1,13 @@
 package pl.pjatk;
 
+import pl.pjatk.Menu.Menu;
+import pl.pjatk.Order.DeliveryOrder;
+import pl.pjatk.Order.OnSiteOrder;
+import pl.pjatk.Personel.Cook;
+import pl.pjatk.Personel.DelieveryMan;
+import pl.pjatk.Personel.Personel;
+import pl.pjatk.Personel.Waiter;
+
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -48,14 +56,14 @@ public class Management {
         switch (chooseMenu) {
             case 1:
                 try {
-                    menu.writeFromFile("menustandard.txt");
+                    menu.writeFromFile("resources/menustandard.txt");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
                 break;
             case 2:
                 try {
-                    menu.writeFromFile("menubreakfast.txt");
+                    menu.writeFromFile("resources/menubreakfast.txt");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

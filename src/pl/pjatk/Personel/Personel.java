@@ -1,4 +1,4 @@
-package pl.pjatk;
+package pl.pjatk.Personel;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -123,7 +123,7 @@ public class Personel {
     // WORKING WITH FILES
 
     public void saveToFile() throws FileNotFoundException {
-        PrintWriter save = new PrintWriter("personel.txt");
+        PrintWriter save = new PrintWriter("resources/personel.txt");
         for (Cook cook : cooks) {
             save.println(cook.toSave());
         }
@@ -142,7 +142,7 @@ public class Personel {
         this.cooks.clear();
         this.waiters.clear();
         this.delieverymen.clear();
-        Scanner odczyt = new Scanner(new File("personel.txt"));
+        Scanner odczyt = new Scanner(new File("resources/personel.txt"));
         while (odczyt.hasNext()) {
             if(odczyt.hasNext("Cook")){
                 odczyt.next();

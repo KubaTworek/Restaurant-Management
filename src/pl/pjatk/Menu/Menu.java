@@ -1,4 +1,4 @@
-package pl.pjatk;
+package pl.pjatk.Menu;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -102,27 +102,27 @@ public class Menu {
                     break;
                 case 5:
                     try {
-                        this.saveToFile("menustandard.txt");
+                        this.saveToFile("resources/menustandard.txt");
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
                     break;
                 case 6:
                     try {
-                        this.saveToFile("menubreakfast.txt");
+                        this.saveToFile("resources/menubreakfast.txt");
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
                     break;
                 case 7:
                     try {
-                        this.writeFromFile("menustandard.txt");
+                        this.writeFromFile("resources/menustandard.txt");
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
                 case 8:
                     try {
-                        this.writeFromFile("menubreakfast.txt");
+                        this.writeFromFile("resources/menubreakfast.txt");
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }

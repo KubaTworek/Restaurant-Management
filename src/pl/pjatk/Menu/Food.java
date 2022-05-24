@@ -1,4 +1,4 @@
-package pl.pjatk;
+package pl.pjatk.Menu;
 
 public class Food {
     private static int numberOfFood = 0;

@@ -1,7 +1,10 @@
-package pl.pjatk;
+package pl.pjatk.Order;
 
 
-import static pl.pjatk.Order.Typ.DELIVERY;
+import pl.pjatk.Menu.Food;
+import pl.pjatk.Menu.Menu;
+
+import static pl.pjatk.Order.Order.Typ.DELIVERY;
 
 public class DeliveryOrder extends Order {
     private String deliveryAddress;

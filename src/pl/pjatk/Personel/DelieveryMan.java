@@ -1,9 +1,9 @@
-package pl.pjatk;
+package pl.pjatk.Personel;
 
-public class Waiter extends Worker{
+public class DelieveryMan extends Worker {
     private double tip;
 
-    public Waiter(String name, String surname, String phone) {
+    public DelieveryMan(String name, String surname, String phone) {
         super(name, surname, phone);
         this.tip = 0;
     }
@@ -17,7 +17,7 @@ public class Waiter extends Worker{
     }
 
     public String toSave() {
-        return "Waiter " + super.getName() + " " + super.getSurname() + " " + super.getPhone();
+        return "DelieveryMan " + super.getName() + " " + super.getSurname() + " " + super.getPhone();
     }
 
     @Override

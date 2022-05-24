@@ -1,4 +1,4 @@
-package pl.pjatk;
+package pl.pjatk.Personel;
 
 public abstract class Worker {
     private String name;

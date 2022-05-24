@@ -1,6 +1,9 @@
-package pl.pjatk;
+package pl.pjatk.Order;
 
-import static pl.pjatk.Order.Typ.ONSITE;
+import pl.pjatk.Menu.Food;
+import pl.pjatk.Menu.Menu;
+
+import static pl.pjatk.Order.Order.Typ.ONSITE;
 
 public class OnSiteOrder extends Order {
     private int tableNumber;
