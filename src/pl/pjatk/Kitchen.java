@@ -3,7 +3,7 @@ package pl.pjatk;
 import pl.pjatk.Order.DeliveryOrder;
 import pl.pjatk.Order.OnSiteOrder;
 import pl.pjatk.Order.Order;
-import pl.pjatk.Personel.DelieveryMan;
+import pl.pjatk.Personel.DeliveryMan;
 import pl.pjatk.Personel.Personel;
 
 import java.time.LocalTime;
@@ -118,7 +118,7 @@ public class Kitchen implements Runnable {
 
     private Order delieverOrder(Order order) {
         while (true) {
-            for (DelieveryMan delieveryman : Personel.getDelieverymen()) {
+            for (DeliveryMan delieveryman : Personel.getDelieverymen()) {
                 if (!delieveryman.isBusy()) {
                     this.ordersInDelievery.add(order);
                     delieveryman.run();

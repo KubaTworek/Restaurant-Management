@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Personel {
     private static final ArrayList<Cook> cooks = new ArrayList<>();
     private static final ArrayList<Waiter> waiters = new ArrayList<>();
-    private static final ArrayList<DelieveryMan> delieverymen = new ArrayList<>();
+    private static final ArrayList<DeliveryMan> delieverymen = new ArrayList<>();
 
     public Personel() {
     }
@@ -23,7 +23,7 @@ public class Personel {
         return waiters;
     }
 
-    public static ArrayList<DelieveryMan> getDelieverymen() {
+    public static ArrayList<DeliveryMan> getDelieverymen() {
         return delieverymen;
     }
 
@@ -48,7 +48,7 @@ public class Personel {
         }
     }
 
-    public void addPersonel(DelieveryMan delieveryman) {
+    public void addPersonel(DeliveryMan delieveryman) {
         delieverymen.add(delieveryman);
         try {
             this.saveToFile();
@@ -77,7 +77,7 @@ public class Personel {
         }
     }
 
-    public void firePersonel(DelieveryMan delieveryman) {
+    public void firePersonel(DeliveryMan delieveryman) {
         delieverymen.remove(delieveryman);
         try {
             this.saveToFile();
@@ -128,8 +128,8 @@ public class Personel {
         for (Waiter waiter : waiters) {
             save.println(waiter.toSave());
         }
-        for (DelieveryMan delieveryMan : delieverymen) {
-            save.println(delieveryMan.toSave());
+        for (DeliveryMan deliveryMan : delieverymen) {
+            save.println(deliveryMan.toSave());
         }
         save.println("End");
         save.close();
@@ -159,7 +159,7 @@ public class Personel {
                 String name = odczyt.next();
                 String surname = odczyt.next();
                 String phone = odczyt.nextLine();
-                this.addPersonel(new DelieveryMan(name, surname, phone));
+                this.addPersonel(new DeliveryMan(name, surname, phone));
             } else if (odczyt.hasNext("End")) {
                 break;
             }
@@ -228,7 +228,7 @@ public class Personel {
         switch (functionHire) {
             case 1 -> this.addPersonel(new Cook(name, surname, phone));
             case 2 -> this.addPersonel(new Waiter(name, surname, phone));
-            case 3 -> this.addPersonel(new DelieveryMan(name, surname, phone));
+            case 3 -> this.addPersonel(new DeliveryMan(name, surname, phone));
             default -> System.out.println("Wybrałeś nieprawidłowy numer.");
         }
     }
@@ -329,78 +329,80 @@ public class Personel {
             System.out.println("Podaj prawidłowy numer.");
         }
         scanUser.nextLine();
-        Scanner showingScanner = new Scanner(System.in);
-        int showedWorker = 0;
+
+
         switch (functionShow) {
-            case 1:
-                if (Personel.getCooks().isEmpty()) {
-                    System.out.println("Nie ma żadnego zatrudnionego kucharza");
-                } else {
-                    this.writeOutCooks();
-                    System.out.println("Kogo chciałbys wylistować? (numer/nazwa)");
-                    try {
-                        showedWorker = showingScanner.nextInt();
-                    } catch (InputMismatchException e) {
-                        showingScanner.nextLine();
-                        System.out.println("Podaj prawidłowy numer.");
-                    }
-                    showingScanner.nextLine();
-                    try {
-                        System.out.println(Personel.getCooks().get(showedWorker - 1).toString());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Podałeś zły numer.");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Nie ma takiego pracownika");
-                    }
-                }
-                break;
-            case 2:
-                if (Personel.getWaiters().isEmpty()) {
-                    System.out.println("Nie ma żadnego zatrudnionego kelnera");
-                } else {
-                    this.writeOutWaiters();
-                    System.out.println("Kogo chciałbys wylistować? (numer/nazwa)");
-                    try {
-                        showedWorker = showingScanner.nextInt();
-                    } catch (InputMismatchException e) {
-                        showingScanner.nextLine();
-                        System.out.println("Podaj prawidłowy numer.");
-                    }
-                    showingScanner.nextLine();
-                    try {
-                        System.out.println(Personel.getWaiters().get(showedWorker - 1).toString());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Podałeś zły numer.");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Nie ma takiego pracownika");
-                    }
-                }
-                break;
-            case 3:
-                if (Personel.getDelieverymen().isEmpty()) {
-                    System.out.println("Nie ma żadnego zatrudnionego dostawcy");
-                } else {
-                    this.writeOutDelievers();
-                    System.out.println("Kogo chciałbys wylistować? (numer/nazwa)");
-                    try {
-                        showedWorker = showingScanner.nextInt();
-                    } catch (InputMismatchException e) {
-                        showingScanner.nextLine();
-                        System.out.println("Podaj prawidłowy numer.");
-                    }
-                    showingScanner.nextLine();
-                    try {
-                        System.out.println(Personel.getDelieverymen().get(showedWorker - 1).toString());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Podałeś zły numer.");
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Nie ma takiego pracownika");
-                    }
-                }
-                break;
-            default:
-                System.out.println("Wybrałeś nieprawidłowy numer.");
+            case 1 -> showingCook();
+            case 2 -> showingWaiter();
+            case 3 -> showingDeliverymen();
+            default -> System.out.println("Wybrałeś nieprawidłowy numer.");
         }
     }
+
+    public int pickingWorker(){
+        Scanner showingScanner = new Scanner(System.in);
+        int showedWorker=0;
+        try {
+            showedWorker = showingScanner.nextInt();
+        } catch (InputMismatchException e) {
+            showingScanner.nextLine();
+            System.out.println("Podaj prawidłowy numer.");
+        }
+        showingScanner.nextLine();
+        return showedWorker;
+    }
+
+    public void showingCook(){
+        if (Personel.getCooks().isEmpty()) {
+            System.out.println("Nie ma żadnego zatrudnionego kucharza");
+        } else {
+            this.writeOutCooks();
+            System.out.println("Kogo chciałbys wylistować?");
+            int showedWorker = pickingWorker();
+            try {
+                System.out.println(Personel.getCooks().get(showedWorker - 1).toString());
+            } catch (NumberFormatException e) {
+                System.out.println("Podałeś zły numer.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Nie ma takiego pracownika.");
+            }
+        }
+    }
+
+    public void showingWaiter(){
+        if (Personel.getWaiters().isEmpty()) {
+            System.out.println("Nie ma żadnego zatrudnionego kelnera");
+        } else {
+            this.writeOutWaiters();
+            System.out.println("Kogo chciałbys wylistować? (numer/nazwa)");
+            int showedWorker = pickingWorker();
+            try {
+                System.out.println(Personel.getWaiters().get(showedWorker - 1).toString());
+            } catch (NumberFormatException e) {
+                System.out.println("Podałeś zły numer.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Nie ma takiego pracownika.");
+            }
+        }
+    }
+
+    public void showingDeliverymen(){
+        if (Personel.getDelieverymen().isEmpty()) {
+            System.out.println("Nie ma żadnego zatrudnionego dostawcy");
+        } else {
+            this.writeOutDelievers();
+            System.out.println("Kogo chciałbys wylistować?");
+            int showedWorker = pickingWorker();
+            try {
+                System.out.println(Personel.getDelieverymen().get(showedWorker - 1).toString());
+            } catch (NumberFormatException e) {
+                System.out.println("Podałeś zły numer.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Nie ma takiego pracownika.");
+            }
+        }
+    }
+
+
 
 }

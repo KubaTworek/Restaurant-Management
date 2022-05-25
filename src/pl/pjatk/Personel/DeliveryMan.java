@@ -1,10 +1,10 @@
 package pl.pjatk.Personel;
 
-public class DelieveryMan extends Worker implements Runnable{
+public class DeliveryMan extends Worker implements Runnable{
     private double tip;
     private boolean isBusy;
 
-    public DelieveryMan(String name, String surname, String phone) {
+    public DeliveryMan(String name, String surname, String phone) {
         super(name, surname, phone);
         this.tip = 0;
         this.isBusy = false;
