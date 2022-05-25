@@ -26,17 +26,10 @@ public class Main {
             }
 
             switch (choose) {
-                case 1:
-                    management.startManagement();
-                    break;
-                case 2:
-                    management.stopManagement();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Wybrałeś nieodpowiedni numer.");
-                    break;
+                case 1 -> management.startManagement();
+                case 2 -> management.stopManagement();
+                case 0 -> System.exit(0);
+                default -> System.out.println("Wybrałeś nieodpowiedni numer.");
             }
         }
     }
