@@ -1,4 +1,4 @@
-package pl.pjatk.Personel;
+package pl.pjatk.Workers;
 
 public class Waiter extends Worker {
     private double tip;
@@ -22,6 +22,6 @@ public class Waiter extends Worker {
 
     @Override
     public String toString() {
-        return "Pracownik: " + super.getName() + " " + super.getSurname() + ", numer telefonu: " + super.getPhone() + ", napiwek: " + String.format("%.2f", this.tip).replaceAll("\\.?0+$", "") + "$";
+        return "Worker: " + super.getName() + " " + super.getSurname() + ", phone number: " + super.getPhone() + ", tip: " + String.format("%.2f", this.tip).replaceAll("\\.?0+$", "") + "$";
     }
 }

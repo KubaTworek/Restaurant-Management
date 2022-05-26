@@ -1,4 +1,4 @@
-package pl.pjatk.Personel;
+package pl.pjatk.Management;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,6 +6,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import pl.pjatk.Workers.Cook;
+import pl.pjatk.Workers.Waiter;
+import pl.pjatk.Workers.DeliveryMan;
+import pl.pjatk.Workers.Worker;
 
 public class Personel {
     private static final ArrayList<Cook> cooks = new ArrayList<>();

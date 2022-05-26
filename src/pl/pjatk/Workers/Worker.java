@@ -1,4 +1,4 @@
-package pl.pjatk.Personel;
+package pl.pjatk.Workers;
 
 public abstract class Worker {
     private String name;
@@ -24,6 +24,6 @@ public abstract class Worker {
     }
 
     public String toString() {
-        return "Pracownik: " + this.name + " " + this.surname + ", numer telefonu: " + this.phone;
+        return "Worker: " + this.name + " " + this.surname + ", phone number: " + this.phone;
     }
 }

@@ -1,6 +1,5 @@
 package pl.pjatk.Order;
 
-import pl.pjatk.Kitchen;
 import pl.pjatk.Menu.Food;
 import pl.pjatk.Menu.Menu;
 
@@ -20,7 +19,7 @@ public abstract class Order{
     private boolean isCompleted;
     protected Typ type;
     public enum Typ {
-        DELIVERY, ONSITE;
+        DELIVERY, ONSITE
     }
 
     public Order(Menu menu) {
@@ -102,11 +101,14 @@ public abstract class Order{
     public int choosingFood(){
         int choose = -2;
         Scanner scanner = new Scanner(System.in);
-        try {
-            choose = scanner.nextInt() - 1;
-            scanner.nextLine();
-        } catch (InputMismatchException | IndexOutOfBoundsException e) {
-            System.out.println("Podaj prawidłowy numer.");
+        while(!(choose > 0 && choose < 50)){
+            try {
+                choose = scanner.nextInt() - 1;
+                scanner.nextLine();
+            } catch (InputMismatchException | IndexOutOfBoundsException e) {
+                System.out.println("Podaj prawidłowy numer.");
+                scanner.nextLine();
+            }
         }
         return choose;
     }
@@ -131,68 +133,5 @@ public abstract class Order{
         for(Food orderedFood : orderFood){
             System.out.println(orderedFood.toString());
         }
-    }
-
-    // ORDER MANAGEMENT
-
-    public OnSiteOrder makingOnsiteOrder(Menu menu){
-        Scanner scanUser = new Scanner(System.in);
-        System.out.println("Wybierz stolik: ");
-        int nrTable = 0;
-        try {
-            nrTable = scanUser.nextInt();
-        } catch (InputMismatchException e) {
-            scanUser.nextLine();
-            System.out.println("Podaj prawidłowy numer.");
-        }
-        scanUser.nextLine();
-        OnSiteOrder onsiteOrder = new OnSiteOrder(menu, nrTable);
-        onsiteOrder.countPrice();
-        return onsiteOrder;
-    }
-
-    public DeliveryOrder makingDeliveryOrder(Menu menu){
-        Scanner scanUser = new Scanner(System.in);
-        System.out.println("Wybierz adres: ");
-        String address = scanUser.nextLine();
-        DeliveryOrder deliveryOrder = new DeliveryOrder(menu, address);
-        deliveryOrder.countPrice();
-        return deliveryOrder;
-    }
-
-    public OnSiteOrder makingRandomOnsiteOrder(Menu menu){
-        Scanner scanUser = new Scanner(System.in);
-        double amountOfFood = Math.random() * 3 + 1;
-
-        System.out.println("Zamówienie stacjonarne, podaj stolik: ");
-        int nrTableRand = 0;
-        try {
-            nrTableRand = scanUser.nextInt();
-        } catch (InputMismatchException e) {
-            scanUser.nextLine();
-            System.out.println("Podaj prawidłowy numer.");
-        }
-        scanUser.nextLine();
-        OnSiteOrder onsiteOrderRand = new OnSiteOrder(nrTableRand);
-        onsiteOrderRand.randomOrder(menu, amountOfFood);
-        onsiteOrderRand.countPrice();
-
-        System.out.println("Zamówiłeś: ");
-        onsiteOrderRand.writeOutOrder();
-        return onsiteOrderRand;
-    }
-
-    public DeliveryOrder makingRandomDelieveryOrder(Menu menu){
-        Scanner scanUser = new Scanner(System.in);
-        double amountOfFood = Math.random() * 3 + 1;
-
-        System.out.println("Zamówienie z dowozem, podaj adres: ");
-        String addressRand = scanUser.nextLine();
-        DeliveryOrder deliveryOrderRand = new DeliveryOrder(addressRand);
-        deliveryOrderRand.randomOrder(menu, amountOfFood);
-        deliveryOrderRand.countPrice();
-        System.out.println("Zamówiłeś: ");
-        deliveryOrderRand.writeOutOrder();
-        return deliveryOrderRand;
     }
 }

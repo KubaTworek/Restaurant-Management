@@ -1,4 +1,4 @@
-package pl.pjatk.Personel;
+package pl.pjatk.Workers;
 
 public class DeliveryMan extends Worker implements Runnable{
     private double tip;
@@ -32,7 +32,7 @@ public class DeliveryMan extends Worker implements Runnable{
 
     @Override
     public String toString() {
-        return "Pracownik: " + super.getName() + " " + super.getSurname() + ", numer telefonu: " + super.getPhone() + ", napiwek: " + String.format("%.2f", this.tip).replaceAll("\\.?0+$", "") + "$";
+        return "Worker: " + super.getName() + " " + super.getSurname() + ", phone number: " + super.getPhone() + ", tip: " + String.format("%.2f", this.tip).replaceAll("\\.?0+$", "") + "$";
     }
 
     @Override

@@ -1,10 +1,9 @@
-package pl.pjatk;
+package pl.pjatk.Management;
 
 import pl.pjatk.Order.DeliveryOrder;
 import pl.pjatk.Order.OnSiteOrder;
 import pl.pjatk.Order.Order;
-import pl.pjatk.Personel.DeliveryMan;
-import pl.pjatk.Personel.Personel;
+import pl.pjatk.Workers.DeliveryMan;
 
 import java.time.LocalTime;
 import java.util.ArrayList;

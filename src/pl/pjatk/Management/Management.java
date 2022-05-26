@@ -1,9 +1,8 @@
-package pl.pjatk;
+package pl.pjatk.Management;
 
 import pl.pjatk.Menu.Menu;
 import pl.pjatk.Order.DeliveryOrder;
 import pl.pjatk.Order.OnSiteOrder;
-import pl.pjatk.Personel.Personel;
 
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
