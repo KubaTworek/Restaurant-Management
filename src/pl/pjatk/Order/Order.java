@@ -1,5 +1,6 @@
 package pl.pjatk.Order;
 
+import pl.pjatk.Management.DataSource;
 import pl.pjatk.Menu.Food;
 import pl.pjatk.Menu.Menu;
 
@@ -39,7 +40,6 @@ public abstract class Order{
     }
 
     // GETTERS
-
 
     public Typ getTyp() {
         return type;
@@ -86,24 +86,25 @@ public abstract class Order{
     // METHODS
 
     public void makeOrder(Menu menu){
+        DataSource dataSource = new DataSource();
         System.out.println("Co chciałbyś zamówić?");
         menu.writeOutMenu();
         int userPick = choosingFood();
-        this.orderFood.add(menu.getMenu().get(userPick));
-        while(userPick != -1){
+        this.orderFood.add(dataSource.selectFoodById(userPick));
+        while(true){
             System.out.println("Coś jeszcze? (jeśli koniec, wybierz 0)");
             userPick = choosingFood();
-            if(userPick == -1) break;
-            this.orderFood.add(menu.getMenu().get(userPick));
+            if(userPick == 0) break;
+            this.orderFood.add(dataSource.selectFoodById(userPick));
         }
     }
 
     public int choosingFood(){
-        int choose = -2;
+        int choose = -1;
         Scanner scanner = new Scanner(System.in);
-        while(!(choose > 0 && choose < 50)){
+        while(!(choose >= 0 && choose < 50)){
             try {
-                choose = scanner.nextInt() - 1;
+                choose = scanner.nextInt();
                 scanner.nextLine();
             } catch (InputMismatchException | IndexOutOfBoundsException e) {
                 System.out.println("Podaj prawidłowy numer.");
@@ -121,10 +122,11 @@ public abstract class Order{
     }
 
     public void randomOrder(Menu menu, double amount){
+        DataSource dataSource = new DataSource();
         this.orderFood = new ArrayList<>();
         for(int i=0; i<amount; i++){
-            int randomPick = (int)(Math.random()*(menu.getMenu().size()));
-            this.orderFood.add(menu.getMenu().get(randomPick));
+            int randomPick = (int)(Math.random()*(dataSource.getNumberOfFood())) + 1;
+            this.orderFood.add(dataSource.selectFoodById(randomPick));
         }
         this.isCompleted = false;
     }

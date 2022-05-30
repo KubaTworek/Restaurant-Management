@@ -1,5 +1,7 @@
 package pl.pjatk.Menu;
 
+import pl.pjatk.Management.DataSource;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -66,6 +68,7 @@ public class Menu {
     // CREATE FOOD
 
     public Food makingFoodToMenu(){
+        DataSource dataSource = new DataSource();
         Scanner addingScanner = new Scanner(System.in);
         double price = -1;
         System.out.println("Jakie danie chciałbyś dodać?");
@@ -83,6 +86,7 @@ public class Menu {
         System.out.println("Podaj opis dania");
         String description = addingScanner.nextLine();
         System.out.println("Danie zostało dodane.");
+        dataSource.insertFood(dataSource.getNumberOfFood()+1, name, description, price, true);
 
         return new Food(name, description, price);
     }
@@ -90,11 +94,11 @@ public class Menu {
     // READ
 
     public void writeOutMenu() {
-        FoodDataSource foodDataSource = new FoodDataSource();
-        foodDataSource.open();
+        DataSource dataSource = new DataSource();
+        dataSource.open();
         System.out.println();
         System.out.println("******************************************");
-        foodDataSource.selectFood();
+        dataSource.selectFood();
         System.out.println("******************************************");
     }
 
@@ -102,9 +106,9 @@ public class Menu {
     // UPDATE
 
     public void changeAvailability(int number) {
-        FoodDataSource foodDataSource = new FoodDataSource();
-        foodDataSource.open();
-        foodDataSource.updateAvailability(number);
+        DataSource dataSource = new DataSource();
+        dataSource.open();
+        dataSource.updateAvailability(number);
         System.out.println("Została zmieniona dostępność dania.");
     }
 
@@ -112,9 +116,9 @@ public class Menu {
     // DELETE
 
     public void deleteFromMenu(int number) {
-        FoodDataSource foodDataSource = new FoodDataSource();
-        foodDataSource.open();
-        foodDataSource.deleteFood(number);
+        DataSource dataSource = new DataSource();
+        dataSource.open();
+        dataSource.deleteFood(number);
         System.out.println("Danie zostało usunięte.");
     }
 

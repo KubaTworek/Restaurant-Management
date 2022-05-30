@@ -1,16 +1,15 @@
 package pl.pjatk.Menu;
 
+import pl.pjatk.Management.DataSource;
+
 public class Food {
 
-    private int number;
     private final String name;
     private final String description;
     private final double price;
     private boolean available;
 
-    public Food(String name, String description, double price) {
-        FoodDataSource foodDataSource = new FoodDataSource();
-        this.number = foodDataSource.getNumberOfFood() + 1;
+    public Food(String name, String description, double price) {;
         this.name = name;
         this.description = description;
         if (price < 0) {
@@ -19,15 +18,6 @@ public class Food {
             this.price = price;
         }
         this.available = true;
-        foodDataSource.insertFood(this.number, this.name, this.description, this.price, true);
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     public String getName() {
@@ -47,8 +37,8 @@ public class Food {
     }
 
     public static int getNumberOfFood() {
-        FoodDataSource foodDataSource = new FoodDataSource();
-        return foodDataSource.getNumberOfFood();
+        DataSource dataSource = new DataSource();
+        return dataSource.getNumberOfFood();
     }
 
     public String toSave() {
@@ -57,6 +47,6 @@ public class Food {
 
     @Override
     public String toString() {
-        return this.number + ". " + this.name + ", " + ((available) ? this.price + "$" : "UNAVAILABLE") + "\n" + this.description;
+        return this.name + ", " + ((available) ? this.price + "$" : "UNAVAILABLE") + "\n" + this.description;
     }
 }

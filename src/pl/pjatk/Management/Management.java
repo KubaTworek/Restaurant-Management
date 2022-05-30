@@ -33,7 +33,7 @@ public class Management {
 
         // ADDING FIRST ORDERS
 
-        /*for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 3) + 1;
             OnSiteOrder onsiteOrder = new OnSiteOrder(1);
             onsiteOrder.randomOrder(menu, rand);
@@ -46,7 +46,7 @@ public class Management {
             deliveryOrder.randomOrder(menu, rand);
             deliveryOrder.countPrice();
             kitchen.addToQueue(deliveryOrder);
-        }*/
+        }
 
         // END OF ADDING
 
@@ -58,7 +58,7 @@ public class Management {
             System.out.println("2. Zarzadzaj zamówieniami");
             System.out.println("3. Zarzadzaj personelem");
             System.out.println("4. Wypisz utarg");
-            System.out.println("0. Cofnij.");
+            System.out.println("0. Zakończ dzień.");
             System.out.println("Wybierz operację: ");
 
             try {
@@ -81,6 +81,8 @@ public class Management {
                 case 4:
                     System.out.println("Utarg wynosi: " + String.format("%.4f", finalMoney).replaceAll("\\.?0+$", "") + "$.");
                 case 0:
+                    stopManagement();
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Wybrales nieprawidlowy numer");

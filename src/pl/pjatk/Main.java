@@ -1,6 +1,5 @@
 package pl.pjatk;
 
-import pl.pjatk.Menu.FoodDataSource;
 import pl.pjatk.Management.Management;
 
 import java.util.InputMismatchException;
@@ -16,7 +15,6 @@ public class Main {
         while (choose != 0) {
             System.out.println();
             System.out.println("1. Rozpocznij dzień w resturacji");
-            System.out.println("2. Zakończ dzień w restauracji");
             System.out.println("0. Zakoncz.");
 
             while(choose < 0){
@@ -30,7 +28,6 @@ public class Main {
 
             switch (choose) {
                 case 1 -> management.startManagement();
-                case 2 -> management.stopManagement();
                 case 0 -> System.exit(0);
                 default -> System.out.println("Wybrałeś nieodpowiedni numer.");
             }

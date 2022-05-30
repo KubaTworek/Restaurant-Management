@@ -21,16 +21,6 @@ class OrderTest {
     private OnSiteOrder onsiteOrder = new OnSiteOrder(1);
     private DeliveryOrder deliveryOrder = new DeliveryOrder("Warsaw");
 
-    /*@BeforeEach
-    void init(){
-        try {
-            menu.writeFromFile("resources/menustandard.txt");
-        } catch (
-                FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }*/
-
     @Test
     void getTyp() {
         assertEquals(Order.Typ.ONSITE,onsiteOrder.getTyp());

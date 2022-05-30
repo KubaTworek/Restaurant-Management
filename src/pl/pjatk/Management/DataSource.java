@@ -1,16 +1,22 @@
-package pl.pjatk.Menu;
+package pl.pjatk.Management;
+
+import pl.pjatk.Menu.Food;
 
 import java.sql.*;
 
-public class FoodDataSource {
+public class DataSource {
+    public DataSource() {
+        init();
+    }
+
+    public void init(){
+        createTableOfFood();
+    }
+
     public Connection open() {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection conn = DriverManager.getConnection("jdbc:sqlite:/Users/kubat/OneDrive/Desktop/PJATK/GUI/ćwiczenia/Restaurant/restaurantdb.db");
-            Statement statement = conn.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS Food " +
-                    " (idFood INTEGER, Name TEXT, Description TEXT, Price REAL, isAvailable INTEGER)");
-            statement.close();
 
             return conn;
         } catch (SQLException | ClassNotFoundException e) {
@@ -18,6 +24,22 @@ public class FoodDataSource {
             return null;
         }
     }
+
+    // CREATE TABLES
+
+    public void createTableOfFood(){
+        try (Connection conn = this.open();
+             Statement statement = conn.createStatement()) {
+            statement.execute("CREATE TABLE IF NOT EXISTS Food " +
+                    " (idFood INTEGER PRIMARY KEY, Name TEXT, Description TEXT, Price REAL, isAvailable INTEGER)");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // CRUD FOOD
+
+    // CREATE
 
     public void insertFood(int idFood, String name, String description, double price, boolean isAvailable) {
         String sql = "INSERT INTO Food(idFood,Name,Description,Price,isAvailable) VALUES(?,?,?,?,?)";
@@ -34,6 +56,8 @@ public class FoodDataSource {
             System.out.println(e.getMessage());
         }
     }
+
+    // READ
 
     public void selectFood(){
         String sql = "SELECT idFood, Name, Description, Price FROM Food";
@@ -53,38 +77,33 @@ public class FoodDataSource {
         }
     }
 
-    public void updateAvailability(int id){
-        String sql;
-        if(getAvailablity(id)){
-            sql = "UPDATE Food SET isAvailable = 0 WHERE idFood = ?";
+    public Food selectFoodById(int id){
+        if(id!=0){
+            String sql = "SELECT * FROM Food WHERE idFood = " + id;
+
+            try (Connection conn = this.open();
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql);) {
+
+                String name = "";
+                String description = "";
+                double price = 0;
+
+                while (rs.next()) {
+                    name = rs.getString("Name");
+                    description = rs.getString("Description");
+                    price = rs.getDouble("Price");
+                }
+
+                return new Food(name, description, price);
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         } else {
-            sql = "UPDATE Food SET isAvailable = 1 WHERE idFood = ?";
+            System.out.println("Podałeś zły numer");
         }
-
-
-        try (Connection conn = this.open();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void deleteFood(int id) {
-        String sql = "DELETE FROM Food WHERE idFood = ?";
-
-        try (Connection conn = this.open();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        return null;
     }
 
     public int getNumberOfFood(){
@@ -116,6 +135,44 @@ public class FoodDataSource {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return true;
+        }
+    }
+
+    // UPDATE
+
+    public void updateAvailability(int id){
+        String sql;
+        if(getAvailablity(id)){
+            sql = "UPDATE Food SET isAvailable = 0 WHERE idFood = ?";
+        } else {
+            sql = "UPDATE Food SET isAvailable = 1 WHERE idFood = ?";
+        }
+
+
+        try (Connection conn = this.open();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // DELETE
+
+    public void deleteFood(int id) {
+        String sql = "DELETE FROM Food WHERE idFood = ?";
+
+        try (Connection conn = this.open();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
