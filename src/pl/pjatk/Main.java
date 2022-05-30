@@ -9,9 +9,6 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        FoodDataSource foodDataSource = new FoodDataSource();
-        foodDataSource.open();
-        //dataSource.insertFood();
         Management management = new Management();
 
         Scanner scanner = new Scanner(System.in);
