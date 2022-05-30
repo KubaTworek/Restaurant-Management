@@ -31,50 +31,9 @@ public class Management {
             e.printStackTrace();
         }
 
-        Scanner scannerMenu = new Scanner(System.in);
-        int chooseMenu = -1;
-
-        System.out.println();
-        System.out.println("1. Wybierz menu standardowe");
-        System.out.println("2. Wybierz menu śniadaniowe");
-        System.out.println("0. Zakończ");
-        System.out.println("Wybierz operację: ");
-
-        while(chooseMenu < 0){
-            try {
-                chooseMenu = scannerMenu.nextInt();
-            } catch (InputMismatchException e) {
-                scannerMenu.nextLine();
-                System.out.println("Podaj prawidłowy numer.");
-            }
-        }
-
-        switch (chooseMenu) {
-            case 1:
-                try {
-                    menu.writeFromFile("resources/menustandard.txt");
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 2:
-                try {
-                    menu.writeFromFile("resources/menubreakfast.txt");
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case 0:
-                System.exit(0);
-                break;
-            default:
-                System.out.println("Wybrales nieprawidlowy numer");
-                break;
-        }
-
         // ADDING FIRST ORDERS
 
-        for (int i = 0; i < 5; i++) {
+        /*for (int i = 0; i < 5; i++) {
             int rand = (int) (Math.random() * 3) + 1;
             OnSiteOrder onsiteOrder = new OnSiteOrder(1);
             onsiteOrder.randomOrder(menu, rand);
@@ -87,7 +46,7 @@ public class Management {
             deliveryOrder.randomOrder(menu, rand);
             deliveryOrder.countPrice();
             kitchen.addToQueue(deliveryOrder);
-        }
+        }*/
 
         // END OF ADDING
 

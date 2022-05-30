@@ -21,7 +21,7 @@ class OrderTest {
     private OnSiteOrder onsiteOrder = new OnSiteOrder(1);
     private DeliveryOrder deliveryOrder = new DeliveryOrder("Warsaw");
 
-    @BeforeEach
+    /*@BeforeEach
     void init(){
         try {
             menu.writeFromFile("resources/menustandard.txt");
@@ -29,7 +29,7 @@ class OrderTest {
                 FileNotFoundException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Test
     void getTyp() {

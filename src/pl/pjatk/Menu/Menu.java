@@ -1,8 +1,5 @@
 package pl.pjatk.Menu;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -27,10 +24,6 @@ public class Menu {
             System.out.println("2. Dodaj pozycję w menu");
             System.out.println("3. Usun pozycje w menu");
             System.out.println("4. Zmien dostepnosc danej pozycji");
-            System.out.println("5. Zapisz do pliku standardowe menu");
-            System.out.println("6. Zapisz do pliku śniadaniowe menu");
-            System.out.println("7. Wczytaj standardowe menu");
-            System.out.println("8. Wczytaj śniadaniowe menu");
             System.out.println("0. Cofnij.");
             System.out.println("Wybierz operację: ");
 
@@ -46,7 +39,7 @@ public class Menu {
                     this.writeOutMenu();
                     break;
                 case 2:
-                    this.addToMenu(makingFoodToMenu());
+                    this.makingFoodToMenu();
                     break;
                 case 3:
                     this.writeOutMenu();
@@ -58,33 +51,6 @@ public class Menu {
                     System.out.println("Któremu daniu chciałbyś zmienić dostępność?");
                     this.changeAvailability(choosingFoodFromMenu());
                     break;
-                case 5:
-                    try {
-                        this.saveToFile("resources/menustandard.txt");
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 6:
-                    try {
-                        this.saveToFile("resources/menubreakfast.txt");
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 7:
-                    try {
-                        this.writeFromFile("resources/menustandard.txt");
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                case 8:
-                    try {
-                        this.writeFromFile("resources/menubreakfast.txt");
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    break;
                 case 0:
                     break;
                 default:
@@ -95,14 +61,9 @@ public class Menu {
 
     // METHODS
 
-    public void changeAvailability(int number) {
-        for (Food food : menu) {
-            if (food.getNumber() == number) {
-                food.setAvailable(!food.getAvailable());
-            }
-        }
-        System.out.println("Została zmieniona dostępność dania.");
-    }
+    // CRUD
+
+    // CREATE FOOD
 
     public Food makingFoodToMenu(){
         Scanner addingScanner = new Scanner(System.in);
@@ -121,16 +82,49 @@ public class Menu {
         addingScanner.nextLine();
         System.out.println("Podaj opis dania");
         String description = addingScanner.nextLine();
+        System.out.println("Danie zostało dodane.");
 
         return new Food(name, description, price);
     }
+
+    // READ
+
+    public void writeOutMenu() {
+        FoodDataSource foodDataSource = new FoodDataSource();
+        foodDataSource.open();
+        System.out.println();
+        System.out.println("******************************************");
+        foodDataSource.selectFood();
+        System.out.println("******************************************");
+    }
+
+
+    // UPDATE
+
+    public void changeAvailability(int number) {
+        FoodDataSource foodDataSource = new FoodDataSource();
+        foodDataSource.open();
+        foodDataSource.updateAvailability(number);
+        System.out.println("Została zmieniona dostępność dania.");
+    }
+
+
+    // DELETE
+
+    public void deleteFromMenu(int number) {
+        FoodDataSource foodDataSource = new FoodDataSource();
+        foodDataSource.open();
+        foodDataSource.deleteFood(number);
+        System.out.println("Danie zostało usunięte.");
+    }
+
 
     public int choosingFoodFromMenu(){
         Scanner choosingScanner = new Scanner(System.in);
         int choosenFood = 0;
         try {
             choosenFood = choosingScanner.nextInt();
-            if (choosenFood < 0 || choosenFood > menu.size()) {
+            if (choosenFood < 0 || choosenFood > Food.getNumberOfFood()) {
                 System.out.println("Podałeś nieprawidłowy numer.");
             }
         } catch (InputMismatchException e) {
@@ -140,56 +134,4 @@ public class Menu {
         choosingScanner.nextLine();
         return choosenFood;
     }
-
-    public void addToMenu(Food food) {
-        menu.add(food);
-        System.out.println("Danie zostało dodane.");
-    }
-
-    public void deleteFromMenu(int number) {
-        for (int i = 0; i < menu.size(); i++) {
-            if (menu.get(i).getNumber() == number) {
-                menu.remove(i);
-                for (int j = i; j < menu.size(); j++) {
-                    menu.get(j).setNumber(menu.get(j).getNumber() - 1);
-                    Food.setNumberOfFood(Food.getNumberOfFood() - 1);
-                }
-            }
-        }
-        System.out.println("Danie zostało usunięte.");
-    }
-
-    public void writeOutMenu() {
-        System.out.println();
-        System.out.println("******************************************");
-        for (Food food : menu) {
-            System.out.println(food.toString());
-        }
-        System.out.println("******************************************");
-    }
-
-    // WORKING WITH FILES
-
-    public void saveToFile(String path) throws FileNotFoundException {
-        PrintWriter save = new PrintWriter(path);
-        for (Food food : menu) {
-            save.println(food.toSave());
-        }
-        save.close();
-        System.out.println("Menu zostało zapisane");
-    }
-
-    public void writeFromFile(String path) throws FileNotFoundException {
-        this.menu.clear();
-        Food.setNumberOfFood(0);
-        Scanner odczyt = new Scanner(new File(path));
-        while (odczyt.hasNext()) {
-            String name = odczyt.next();
-            double cena = Double.parseDouble(odczyt.next());
-            String describe = odczyt.nextLine();
-            this.addToMenu(new Food(name, describe, cena));
-        }
-    }
-
-
 }

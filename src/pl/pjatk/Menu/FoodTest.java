@@ -41,12 +41,6 @@ class FoodTest {
     }
 
     @Test
-    void setNumberOfFood() {
-        Food.setNumberOfFood(10);
-        assertEquals(10, Food.getNumberOfFood());
-    }
-
-    @Test
     void toSave() {
         assertEquals("Pierogi 5.99 Polish food",food1.toSave());
         food2.setAvailable(false);
