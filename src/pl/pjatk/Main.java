@@ -1,6 +1,5 @@
 package pl.pjatk;
 
-import pl.pjatk.Menu.FoodDataSource;
 import pl.pjatk.Management.Management;
 
 import java.util.InputMismatchException;
@@ -9,9 +8,6 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        FoodDataSource foodDataSource = new FoodDataSource();
-        foodDataSource.open();
-        //dataSource.insertFood();
         Management management = new Management();
 
         Scanner scanner = new Scanner(System.in);

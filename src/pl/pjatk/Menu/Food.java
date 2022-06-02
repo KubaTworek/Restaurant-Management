@@ -1,6 +1,7 @@
 package pl.pjatk.Menu;
 
 public class Food {
+    private static int numberOfFood = 0;
 
     private int number;
     private final String name;
@@ -9,8 +10,7 @@ public class Food {
     private boolean available;
 
     public Food(String name, String description, double price) {
-        FoodDataSource foodDataSource = new FoodDataSource();
-        this.number = foodDataSource.getNumberOfFood() + 1;
+        this.number = ++numberOfFood;
         this.name = name;
         this.description = description;
         if (price < 0) {
@@ -19,7 +19,6 @@ public class Food {
             this.price = price;
         }
         this.available = true;
-        foodDataSource.insertFood(this.number, this.name, this.description, this.price, true);
     }
 
     public int getNumber() {
@@ -47,8 +46,11 @@ public class Food {
     }
 
     public static int getNumberOfFood() {
-        FoodDataSource foodDataSource = new FoodDataSource();
-        return foodDataSource.getNumberOfFood();
+        return numberOfFood;
+    }
+
+    public static void setNumberOfFood(int numberOfFood) {
+        Food.numberOfFood = numberOfFood;
     }
 
     public String toSave() {
