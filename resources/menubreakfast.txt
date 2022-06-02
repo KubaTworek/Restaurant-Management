@@ -1,0 +1,6 @@
+Sandwich 7.99  Real american bbq sandwich.
+Eggs 6.99  Eggs from real farm.
+Omlet 7.99  Very delicous and sweet omlet.
+Crossaint 6.99  French taste.
+Coffee 5.99  The best beginning of the day.
+

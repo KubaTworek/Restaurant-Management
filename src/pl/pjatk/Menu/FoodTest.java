@@ -49,8 +49,8 @@ class FoodTest {
 
     @Test
     void testToString() {
-        assertEquals("Pierogi, 5.99$\nPolish food",food1.toString());
+        assertEquals(food1.getNumber() + ". Pierogi, 5.99$\nPolish food",food1.toString());
         food2.setAvailable(false);
-        assertEquals("Pasta, UNAVAILABLE\nItalian food",food2.toString());
+        assertEquals(food2.getNumber() + ". Pasta, UNAVAILABLE\nItalian food",food2.toString());
     }
 }

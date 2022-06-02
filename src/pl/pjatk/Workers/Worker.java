@@ -24,6 +24,6 @@ public abstract class Worker {
     }
 
     public String toString() {
-        return this.name + " " + this.surname + ", phone number: " + this.phone;
+        return "Worker: " + this.name + " " + this.surname + ", phone number: " + this.phone;
     }
 }
